@@ -20,7 +20,7 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
 //App::uses('AppController', 'Controller');
-
+App::uses('Folder', 'Utility');
 /**
  * Static content controller
  *
@@ -199,6 +199,10 @@ class EmployeesController extends AppController {
 		$this->set('title', 'Employee Manage');
         
         /** For generating the Form field in the view **/
+		
+		$all_form_fields = $this->FormSetting->find('all',array('conditions'=>array('FormSetting.status'=>1,'FormSetting.form_id'=>1)));
+        $this->set('all_form_fields', $all_form_fields);
+		
         $general_form_fields = $this->FormSetting->find('all',array('conditions'=>array('FormSetting.field_group'=>'general','FormSetting.status'=>1,'FormSetting.form_id'=>1)));
         $this->set('general_form_fields', $general_form_fields);
         
@@ -224,13 +228,10 @@ class EmployeesController extends AppController {
         $this->set('education_form_fields', $education_form_fields);
 		
 		$reserch_experience_form_fields = $this->FormSetting->find('all',array('conditions'=>array('FormSetting.field_group'=>'reserch_experience','FormSetting.status'=>1,'FormSetting.form_id'=>1)));
-        $this->set('reserch_experience_form_fields', $reserch_experience_form_fields);
-		
+        $this->set('reserch_experience_form_fields', $reserch_experience_form_fields);		
 		
 		$contract_section_form_fields = $this->FormSetting->find('all',array('conditions'=>array('FormSetting.field_group'=>'contract_section','FormSetting.status'=>1,'FormSetting.form_id'=>1)));
-        $this->set('contract_section_form_fields', $contract_section_form_fields);
-		
-		
+        $this->set('contract_section_form_fields', $contract_section_form_fields);		
 		
 		$discipline_section_form_fields = $this->FormSetting->find('all',array('conditions'=>array('FormSetting.field_group'=>'discipline_section','FormSetting.status'=>1,'FormSetting.form_id'=>1)));
         $this->set('discipline_section_form_fields', $discipline_section_form_fields);
@@ -241,67 +242,207 @@ class EmployeesController extends AppController {
 		$upload_section_form_fields = $this->FormSetting->find('all',array('conditions'=>array('FormSetting.field_group'=>'upload_section','FormSetting.status'=>1,'FormSetting.form_id'=>1)));
         $this->set('upload_section_form_fields', $upload_section_form_fields);
 		
-
-        if (!empty($this->request->data['Employee']['first_name'])) {
-            /** For Save the Form data during Add and Edit **/
-            //pr($this->request->data);die;
-            
-            if(!empty($this->request->data['Employee']['id'])){
-                $save_data['Employee']['id'] = $this->request->data['Employee']['id'];
-                $save_data['Employee']['modified_on'] = date("Y-m-d H:i:s");
-                
-                $emp_data = $this->Employee->find('first',array('conditions'=>array('Employee.id'=>$this->request->data['Employee']['id'])));
-                $edata = json_decode($emp_data['Employee']['form_values'],true);
-            }else{
-                $save_data['Employee']['created_on'] = date("Y-m-d H:i:s");
-            }
-            $save_data['Employee']['first_name'] = $this->request->data['Employee']['first_name'];
-            $save_data['Employee']['last_name'] = $this->request->data['Employee']['last_name'];
-            unset($this->request->data['Employee']['first_name']);
-            unset($this->request->data['Employee']['last_name']);
-            unset($this->request->data['Employee']['id']);
-            
-            /** For file uploading **/
+			
+		
+		if (isset($this->request->data['Employee']['Save_Employee'])) {
+			
+			
+			/** For file uploading **/
             $file_fields = $this->FormSetting->find('all',array('conditions'=>array('FormSetting.status'=>1,'FormSetting.form_id'=>1,'FormSetting.field_type'=>'file')));
             foreach($file_fields as $frow){
                 $filename = '';
-                if (!empty($this->request->data['Employee'][$frow['FormSetting']['field_name']]['tmp_name'])
+                if (isset($this->request->data['Employee'][$frow['FormSetting']['field_name']]['tmp_name'])
                     && is_uploaded_file($this->request->data['Employee'][$frow['FormSetting']['field_name']]['tmp_name'])
                 ) {
-                    // Strip path information
-                    $filename = time().'_'.basename($this->request->data['Employee'][$frow['FormSetting']['field_name']]['name']); 
+                   // Strip path information
+					if (isset($this->request->data['Employee']['first_name'])) {
+						
+					$first_name = $this->request->data['Employee']['first_name'];
+                    $filename = $first_name ."/". time().'_'.basename($this->request->data['Employee'][$frow['FormSetting']['field_name']]['name']);
+					$dir = new Folder( WWW_ROOT . DS . 'upload/employee/'. $first_name , true, 0755);
                     move_uploaded_file(
                         $this->request->data['Employee'][$frow['FormSetting']['field_name']]['tmp_name'],
-                        WWW_ROOT . DS . 'upload/employee' . DS . $filename
+                        WWW_ROOT . DS . 'upload/employee/' . DS . $filename
                     );
                     $this->request->data['Employee'][$frow['FormSetting']['field_name']] = $filename;
+					
+					}
                 }else{
                     $this->request->data['Employee'][$frow['FormSetting']['field_name']] = !empty($edata['Employee'][$frow['FormSetting']['field_name']])?$edata['Employee'][$frow['FormSetting']['field_name']]:'';
                 }
                 
             }
-            /** For file uploading End **/
-            $save_data['Employee']['form_values'] = json_encode($this->request->data);
-            if($this->Employee->save($save_data)){
-                $subscribe['Subscriber']['email'] = $this->request->data['Employee']['email'];
-                $subscribe['Subscriber']['first_name'] = $save_data['Employee']['first_name'];
-                $subscribe['Subscriber']['last_name'] = $save_data['Employee']['last_name'];
+            /** For file uploading End **/			
+			
+			
+			$employee_data = array();
+			foreach($all_form_fields as $key=>$val){
+				$name = $val['FormSetting']['field_name'];
+				
+				
+				if($name == 'id'){
+					
+					if (isset($this->request->data['Employee'][$name])) {
+						$save_data['Employee'][$name] = $this->request->data['Employee'][$name];
+						$save_data['Employee']['modified_on'] = date("Y-m-d H:i:s");
+					}else{
+						$save_data['Employee']['created_on'] = date("Y-m-d H:i:s");
+					}
+					
+					continue;
+				}
+				
+				if($name == 'first_name' || $name == 'last_name'){
+					
+					if (isset($this->request->data['Employee'][$name])) {
+						$save_data['Employee'][$name] = $this->request->data['Employee'][$name];
+						$subscribe['Subscriber'][$name] = $this->request->data['Employee'][$name];
+					}
+					
+					continue;
+				}	
+				
+				if($name == 'email'){
+					
+					if (isset($this->request->data['Employee'][$name])) {
+						$save_data['Employee'][$name] = $this->request->data['Employee'][$name];
+						$subscribe['Subscriber']['email'] = $this->request->data['Employee'][$name];
+					}
+					
+				}
+				//if(isset($this->request->data['Employee']['employee_upload_files_data'])){
+					//print_r($this->request->data['Employee']['employee_upload_files_data']);
+					//die('in');
+				//}//die('out');
+				
+				
+				if($name == 'employee_upload_files'){
+					
+					
+					/* foreach($this->request->data['Employee']['employee_upload_files'] as $key=>$val){
+
+							
+
+						$loop = explode("====",$val);
+						$loopdataarray = array();
+						foreach($loop as $row=>$rowVal){
+							$loopdata = explode("===",$rowVal);
+							$loopdata = str_replace("'","",$loopdata);
+							$loopdatakey = $loopdata[0];
+							$loopdataarray[$loopdatakey] = $loopdata[1];
+						}
+						$f_name = $this->request->data['Employee']['first_name'];
+						$upload_file_Path = $loopdataarray['upload_file_Path'];
+						$upload_file_Name = $loopdataarray['upload_file_Name'];
+						
+						
+						$upload_file_data_link = WWW_ROOT . DS . "upload/employee/". $f_name ."/". $upload_file_Name;
+						
+						move_uploaded_file($upload_file_Path, $upload_file_data_link);
+						
+
+					} */
+					
+					
+				}			
+				
+				
+				if (isset($this->request->data['Employee'][$name])) {
+					$employee_row[$name] = $this->request->data['Employee'][$name];
+				}else{
+					$employee_row[$name] = "";
+				}
+			}
+			
+			
+			$employee_data['Employee'] = $employee_row;
+			
+			$save_data['Employee']['form_values'] = json_encode($employee_data);
+			
+			if($this->Employee->save($save_data)){
                 $subscribe['Subscriber']['modified_on'] = date("Y-m-d H:i:s");
                 $this->Subscriber->save($subscribe);
                 $this->Session->setFlash('Employee saved successfully.');
                 $this->redirect(array('admin'=>true,'action'=>'list'));
             }
-        }
-        
-        if($pid!=''){
+			
+			
+			//echo "<script> alert('ee-".json_encode($employee_data)."-dd');</script>";
+			//die;
+		}
+		if($pid!=''){
             /** For generating the Form prefilled during update **/
             $emp_data = $this->Employee->find('first',array('conditions'=>array('Employee.id'=>$pid)));
             $this->request->data = json_decode($emp_data['Employee']['form_values'],true); 
             $this->request->data['Employee']['id'] = $emp_data['Employee']['id'];
             $this->request->data['Employee']['first_name'] = $emp_data['Employee']['first_name'];
             $this->request->data['Employee']['last_name'] = $emp_data['Employee']['last_name'];
-            //pr($this->request->data);die;
+           // pr($this->request->data);die;
         }
+		
+		
+		// id 	first_name 	last_name 	form_values 	user_id 	created_on 	modified_on 	status 
+        // if (!empty($this->request->data['Employee']['first_name'])) {
+            // /** For Save the Form data during Add and Edit **/
+            //pr($this->request->data);die;
+            
+            // if(!empty($this->request->data['Employee']['id'])){
+                // $save_data['Employee']['id'] = $this->request->data['Employee']['id'];
+                // $save_data['Employee']['modified_on'] = date("Y-m-d H:i:s");
+                
+                // $emp_data = $this->Employee->find('first',array('conditions'=>array('Employee.id'=>$this->request->data['Employee']['id'])));
+                // $edata = json_decode($emp_data['Employee']['form_values'],true);
+            // }else{
+                // $save_data['Employee']['created_on'] = date("Y-m-d H:i:s");
+            // }
+            // $save_data['Employee']['first_name'] = $this->request->data['Employee']['first_name'];
+            // $save_data['Employee']['last_name'] = $this->request->data['Employee']['last_name'];
+			
+            // unset($this->request->data['Employee']['first_name']);
+            // unset($this->request->data['Employee']['last_name']);
+            // unset($this->request->data['Employee']['id']);
+            
+            // /** For file uploading **/
+            // $file_fields = $this->FormSetting->find('all',array('conditions'=>array('FormSetting.status'=>1,'FormSetting.form_id'=>1,'FormSetting.field_type'=>'file')));
+            // foreach($file_fields as $frow){
+                // $filename = '';
+                // if (!empty($this->request->data['Employee'][$frow['FormSetting']['field_name']]['tmp_name'])
+                    // && is_uploaded_file($this->request->data['Employee'][$frow['FormSetting']['field_name']]['tmp_name'])
+                // ) {
+                   // Strip path information
+                    // $filename = time().'_'.basename($this->request->data['Employee'][$frow['FormSetting']['field_name']]['name']); 
+                    // move_uploaded_file(
+                        // $this->request->data['Employee'][$frow['FormSetting']['field_name']]['tmp_name'],
+                        // WWW_ROOT . DS . 'upload/employee' . DS . $filename
+                    // );
+                    // $this->request->data['Employee'][$frow['FormSetting']['field_name']] = $filename;
+                // }else{
+                    // $this->request->data['Employee'][$frow['FormSetting']['field_name']] = !empty($edata['Employee'][$frow['FormSetting']['field_name']])?$edata['Employee'][$frow['FormSetting']['field_name']]:'';
+                // }
+                
+            // }
+            // /** For file uploading End **/
+            // $save_data['Employee']['form_values'] = json_encode($this->request->data);
+            // if($this->Employee->save($save_data)){
+                // $subscribe['Subscriber']['email'] = $this->request->data['Employee']['email'];
+                // $subscribe['Subscriber']['first_name'] = $save_data['Employee']['first_name'];
+                // $subscribe['Subscriber']['last_name'] = $save_data['Employee']['last_name'];
+                // $subscribe['Subscriber']['modified_on'] = date("Y-m-d H:i:s");
+                // $this->Subscriber->save($subscribe);
+                // $this->Session->setFlash('Employee saved successfully.');
+                // $this->redirect(array('admin'=>true,'action'=>'list'));
+            // }
+        // }
+        
+        // if($pid!=''){
+            // /** For generating the Form prefilled during update **/
+            // $emp_data = $this->Employee->find('first',array('conditions'=>array('Employee.id'=>$pid)));
+            // $this->request->data = json_decode($emp_data['Employee']['form_values'],true); 
+            // $this->request->data['Employee']['id'] = $emp_data['Employee']['id'];
+            // $this->request->data['Employee']['first_name'] = $emp_data['Employee']['first_name'];
+            // $this->request->data['Employee']['last_name'] = $emp_data['Employee']['last_name'];
+           // pr($this->request->data);die;
+        // }
 		
     }
 	// Dashboard Function End

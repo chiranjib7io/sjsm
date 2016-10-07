@@ -1,7 +1,8 @@
 <head> 
 	<!--<script src="<?php //echo $this->webroot; ?>js/jquery.form.js"></script>-->
 	<script src="<?php echo $this->webroot; ?>js/jquery-migrate-1.2.1.min.js"></script>
-	<script src="<?php echo $this->webroot; ?>js/jquery.form.js"></script>
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 </head>
 <div class="saveinfo_cnt">
 <section class="content-header">
@@ -13,17 +14,31 @@
 </section>
 
 <section class="content"><!-- content -->
+<?php echo $this->Form->create('Employee',array('type' => 'file','admin'=>true,'controller'=>'employees','action'=>'save')); ?>
 <div class="outer_content"><!--outer_content-->
+	<span style="color:red"><?php echo $this->Session->flash(); ?></span>
+    <?php echo $this->Form->input('Employee.id', array('type' => 'hidden','label'=>false)); ?>
 	<div class="content_cnt first_page"><!-- content_cnt -->
 	<h2>General Information :-</h2>
 		<div class="row inner_form"><!-- inner_form -->
 		<h1 class="list_no"><span>1</span></h1>
 			<?php
 				$model_name = 'Employee.';
+										
+				/* echo "<pre>";
+				
+				print_r($all_form_fields);
+				
+				echo "</pre>"; */
+				
+				/* foreach($all_form_fields as $key=>$val){
+					echo $val['FormSetting']['field_name']."<br>";
+				} */
+
 				foreach($general_form_fields as $field){
 				?>
 					<div class="col-sm-6">
-						<form>
+						
 						<div class="input_box">
 					<?php
 					if(!empty($this->request->data['Employee'])){
@@ -33,7 +48,7 @@
 					}
 					?>
 						</div>
-						</form>
+						
 					</div>
 					<?php
 						 
@@ -51,7 +66,7 @@
 				foreach($phone_form_fields as $field){
 				?>
 					<div class="col-sm-6">
-						<form>
+						
 						<div class="input_box">
 					<?php
 					if(!empty($this->request->data['Employee'])){
@@ -61,7 +76,7 @@
 					}
 					?>
 						</div>
-						</form>
+						
 					</div>
 					<?php
 						 
@@ -79,7 +94,7 @@
 				foreach($address_form_fields as $field){
 				?>
 					<div class="col-sm-6">
-						<form>
+						
 						<div class="input_box">
 					<?php
 					if(!empty($this->request->data['Employee'])){
@@ -89,7 +104,7 @@
 					}
 					?>
 						</div>
-						</form>
+						
 					</div>
 					<?php
 						 
@@ -107,7 +122,7 @@
 				foreach($education_form_fields as $field){
 				?>
 					<div class="col-sm-6">
-						<form>
+						
 						<div class="input_box">
 					<?php
 					if(!empty($this->request->data['Employee'])){
@@ -117,7 +132,7 @@
 					}
 					?>
 						</div>
-						</form>
+						
 					</div>
 					<?php
 						 
@@ -135,7 +150,7 @@
 				foreach($experience_form_fields as $field){
 				?>
 					<div class="col-sm-6">
-						<form>
+						
 						<div class="input_box">
 					<?php
 					if(!empty($this->request->data['Employee'])){
@@ -145,7 +160,7 @@
 					}
 					?>
 						</div>
-						</form>
+						
 					</div>
 					<?php
 						 
@@ -163,7 +178,7 @@
 				foreach($reserch_experience_form_fields as $field){
 				?>
 					<div class="col-sm-12">
-						<form>
+						
 						<div class="input_box">
 					<?php
 					if(!empty($this->request->data['Employee'])){
@@ -173,7 +188,7 @@
 					}
 					?>
 						</div>
-						</form>
+						
 					</div>
 					<?php
 						 
@@ -191,17 +206,17 @@
 				foreach($attachment_form_fields as $field){
 				?>
 					<div class="col-sm-12">
-						<form>
+						
 						<div class="input_box">
 					<?php
 					if(!empty($this->request->data['Employee'])){
-						echo $this->Slt->generate_form_field($field['FormSetting'],$model_name,$this->request->data['Employee']);  
+						print_r($this->Slt->generate_form_field($field['FormSetting'],$model_name,$this->request->data['Employee']));  
 					}else{
 						echo $this->Slt->generate_form_field($field['FormSetting'],$model_name);  
 					}
 					?>
 						</div>
-						</form>
+						
 					</div>
 					<?php
 						 
@@ -219,7 +234,7 @@
 				foreach($contract_section_form_fields as $field){
 				?>
 					<div class="col-sm-6">
-						<form>
+						
 						<div class="input_box">
 					<?php
 					if(!empty($this->request->data['Employee'])){
@@ -229,7 +244,7 @@
 					}
 					?>
 						</div>
-						</form>
+						
 					</div>
 					<?php
 						 
@@ -247,7 +262,7 @@
 				foreach($discipline_section_form_fields as $field){
 				?>
 					<div class="col-sm-6">
-						<form>
+						
 						<div class="input_box">
 					<?php
 					if(!empty($this->request->data['Employee'])){
@@ -257,7 +272,7 @@
 					}
 					?>
 						</div>
-						</form>
+						
 					</div>
 					<?php
 						 
@@ -274,7 +289,7 @@
 				foreach($emergency_contact_form_fields as $field){
 				?>
 					<div class="col-sm-6">
-						<form>
+						
 						<div class="input_box">
 					<?php
 					if(!empty($this->request->data['Employee'])){
@@ -284,7 +299,7 @@
 					}
 					?>
 						</div>
-						</form>
+						
 					</div>
 					<?php
 						 
@@ -296,12 +311,21 @@
 	<h2>Upload Section :-</h2>
 		<div class="row inner_form"><!-- inner_form -->
 		<h1 class="list_no"><span>11</span></h1>
-		<?php
-				$model_name = 'Employee.';
-				foreach($upload_section_form_fields as $field){
-				?>
+				<?php
+				//$model_name = 'Employee.';
+				//foreach($upload_section_form_fields as $field){
+					
+					//print_r($field);
+					/* $result = json_decode($val['FormSetting']['field_values']);
+					print_r($result);
+					
+					foreach($result as $key=>$val){
+						echo $val;
+					} */
+					
+				/* ?>
 					<div class="col-sm-12">
-						<form>
+						
 						<div class="input_box">
 					<?php
 					if(!empty($this->request->data['Employee'])){
@@ -311,11 +335,10 @@
 					}
 					?>
 						</div>
-						</form>
 					</div>
-					<?php
+					<?php */
 						 
-				}
+				//}
 			?> 
 
 			<div class="col-sm-12">
@@ -334,13 +357,61 @@
 						<td><input type="checkbox"></td>
 						<td>Uploaded</td>
 					</tr-->
+					
+					
+					<?php
+					
+					if(!empty($this->request->data['Employee']['employee_upload_files'])){
+
+						
+						foreach($this->request->data['Employee']['employee_upload_files'] as $key=>$val){
+
+							
+
+							$loop = explode("====",$val);
+							$loopdataarray = array();
+							foreach($loop as $row=>$rowVal){
+								$loopdata = explode("===",$rowVal);
+								$loopdata = str_replace("'","",$loopdata);
+								$loopdatakey = $loopdata[0];
+								$loopdataarray[$loopdatakey] = $loopdata[1];
+							}
+							
+							$dataArr = "
+							'upload_file_Type'==='".$loopdataarray['upload_file_Type']."'====
+							'upload_file_Path'==='".$loopdataarray['upload_file_Path']."'====
+							'upload_file_Name'==='".$loopdataarray['upload_file_Name']."'====
+							'upload_file_Date'==='".$loopdataarray['upload_file_Date']."'====
+							'upload_file_Mandatory'==='".$loopdataarray['upload_file_Mandatory']."'====
+							'upload_file_Status'==='".$loopdataarray['upload_file_Status']."'";
+							//$this->webroot.'upload/employee/'.$first_name.'/'.
+							$first_name = $this->request->data['Employee']['first_name'];
+							$dataPrint = '<tr>
+								<td>'.$loopdataarray['upload_file_Type'].'</td>
+								<td>
+									<a target="_blank" href="'.$loopdataarray['upload_file_Path'].'">
+										'.$loopdataarray['upload_file_Name'].'
+									</a>
+								</td>
+								<td>'.$loopdataarray['upload_file_Date'].'</td>
+								<td><input type="checkbox" '.$loopdataarray['upload_file_Mandatory'].' name="data[Employee][employee_upload_files][]" value="'.$dataArr.'"></td>
+								<td>'.$loopdataarray['upload_file_Status'].'</td>
+							</tr>';
+							
+							echo $dataPrint;				
+
+						}
+					}
+					
+					?>					
+					
 				</table>
 				<div class="button_box">
-				     <button id="cookieID" onclick="openpopup();">Add file</button> 
+				     <input type="button" onclick="openpopup();" style="width: auto !important;" value="Add file" > 
 					    <div id="light" class="white_content"> 
 						    <div style="position:relative"><h5>Select File to Upload</h5>
 								<div class="content">
-									<form id="uploadForm" name="uploadForm" action="<?php echo $this->webroot; ?>admin/employees/save_file_upload" method="post" enctype="multipart/form-data">
+								
 								        <div id="images_preview"></div>
 									    <div id="step1">
 											<h6>Step 1</h6>
@@ -350,10 +421,21 @@
 										</div>
 										<div id="step2" style="display: none;">
 											<h6>Step 2</h6>
-											<label>Resume</label><input type="checkbox" id="myfile_type" name="myfile_type[]" value="1"><br>
-											<label>PAN Card</label><input type="checkbox" id="myfile_type" name="myfile_type[]" value="2"><br>
-											<label>Passport</label><input type="checkbox" id="myfile_type" name="myfile_type[]" value="3"><br>
-											<label>Other</label><input type="checkbox" id="myfile_type" name="myfile_type[]" value="4"><br>
+											<?php
+											$model_name = 'Employee.';
+											foreach($upload_section_form_fields as $field=>$val2){
+												//echo "<pre>";
+												//print_r($val2);echo "</pre>";
+												
+												$result = json_decode($val2['FormSetting']['field_values']);
+												
+												foreach($result as $key=>$val){
+												
+													echo '<label>'.$val.'</label><input type="checkbox" id="myfile_type" name="myfile_type[]" value="'.$val.'"><br>';
+												}
+												
+											}
+											?>
 											<label id="other_myfile_type_label" style="display: none;">&nbsp;</label><input type="text" id="other_myfile_type" name="other_myfile_type" style="display: none;">
 											<br>
 											<label>&nbsp;</label><span id="print_file_name"></span><br>
@@ -364,7 +446,7 @@
 											<img src="<?php echo $this->webroot; ?>img/uploading.gif">
 										</div>
 										<div id="loaderImg"></div>
-									</form>
+										
 								</div> 
 								<br>
 								<a id="close_popup" href="javascript: void(0);" onclick="javascript: closepopup();" style="display: block;">Close</a> <!--  class="closebtn" -->
@@ -380,7 +462,7 @@
 	<div class="content_cnt"><!-- content_cnt -->
 		<div class="row"><!-- inner_form -->
 			<div class="col-sm-6 submit_box">
-				<input type="submit" class="second_page" value="submit">
+				<input type="submit" class="second_page" name="data[Employee][Save_Employee]" value="submit">
 			</div>
 			<div class="col-sm-6 submit_box">
 				<a href="javascript:;" class="firstpage_link" id="firstpage_link" />1</a>
@@ -389,8 +471,9 @@
 			
 		</div><!-- End-inner_form -->
 	</div><!-- End-content_cnt -->
-	</div><!-- End-outer_content-->
 	
+</div><!-- End-outer_content-->
+</form>	
 </section><!-- End-content -->
 </div>
 <style>
@@ -504,7 +587,7 @@ $(document).ready(function(e){
 		$(group).attr("checked",false);
 		$(this).attr("checked",true);		
 
-		if($(this).val() == 4){
+		if($(this).val() == 'Other'){
 			$("#other_myfile_type").fadeIn();
 			$("#other_myfile_type_label").fadeIn();
 		}else{
@@ -516,7 +599,7 @@ $(document).ready(function(e){
 	function encodeImageFileAsURL() {
 
 		var filesSelected = document.getElementById("myfile").files;
-		
+		// console.log(URL.createObjectURL(filesSelected.target.files[0]));
 		if (filesSelected.length > 0) {
 		
 			var fileToLoad = filesSelected[0];
@@ -530,11 +613,16 @@ $(document).ready(function(e){
 			fileReader.readAsDataURL(fileToLoad);
 		}
 	}
+	/* $('#myfile').change( function(event) {
+		var tmppath = URL.createObjectURL(event.target.files[0]);
+		$('#images_preview').append('<input type="hidden" name="file_path" id="file_path" value="'+tmppath+'" />');
+	}); */
 
 	$("#submit_step1").live("click", function()
 	{	
 		var file_name = $('#myfile').val();
 		if(file_name == ""){
+			alert("File not uploaded.");
 			return false;
 		}
 		
@@ -553,17 +641,15 @@ $(document).ready(function(e){
 	$("#submit_step2").live("click", function()
 	{	
 		var file_type  = $("#myfile_type:checked").val();
-		if(file_type == 1){
-			file_type = "Resume";
-		}else if(file_type == 2){
-			file_type = "PAN Card";
-		}else if(file_type == 3){
-			file_type = "Passport";
-		}else if(file_type == 4){
+		if(typeof file_type === 'undefined' || file_type === null){
+			alert("File type is not checked.");
+			return false;
+		}
+		
+		if(file_type == "Other"){
 			file_type  = $("#other_myfile_type").val();
 		}else{
-			alert("File type is empty.");
-			return false;
+			file_type = file_type;
 		}
 		$('#loaderImg').html('<div style="text-align:center"><img src="<?php echo $this->webroot; ?>img/ajax-loader.gif" /></div>');
 		
@@ -584,24 +670,25 @@ $(document).ready(function(e){
 		
 		setTimeout(function(){
 
+//var dataArr = "{'upload_file_Type':'"+file_type+"','upload_file_Path':'"+file_path+"','upload_file_Name':'"+file_name+"','upload_file_Date':'<?php echo date('m-d-Y'); ?>','upload_file_Mandatory':'checked','upload_file_Status':'Uploaded'}";
+var dataArr = "'upload_file_Type'==='"+file_type+"'===='upload_file_Path'==='"+file_path+"'===='upload_file_Name'==='"+file_name+"'===='upload_file_Date'==='<?php echo date('m-d-Y'); ?>'===='upload_file_Mandatory'==='checked'===='upload_file_Status'==='Uploaded'";
+		
 			$('#step2').fadeOut();
 			$('#step3').fadeOut();
 			$('#step1').fadeIn();
-			$('#table_upload_data').append('<tr><td>'+file_type+'</td><td><a target="_blank" href="'+file_path+'">'+file_name+'</a></td><td><?php echo date('m-d-Y'); ?></td><td><input type="checkbox"></td><td>Uploaded</td></tr>');
+		$('#table_upload_data').append('<tr><td>'+file_type+'</td><td><a target="_blank" href="'+file_path+'">'+file_name+'</a></td><td><?php echo date('m-d-Y'); ?></td><td><input type="checkbox" checked name="data[Employee][employee_upload_files][]" value="'+dataArr+'"></td><td>Uploaded</td></tr>');
 			closepopup();
 			
-		}, 10000);
+		}, 5000);
+		$("#myfile_type:checked").prop("checked",false);	
 		
-		$("#myfile_type:checked").prop("checked",false);
 	});
 
 	$(".firstpage_link").trigger("click");
 
-	/* $(function(){
-		$( ".datepicker" ).datepicker();
-	});
+	$( ".datepicker" ).datepicker();
 	
-	$("#fileuploader").uploadFile({
+	/* $("#fileuploader").uploadFile({
 		url:"",
 		fileName:"myfile",
 		autoSubmit:false
