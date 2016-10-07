@@ -1,0 +1,7 @@
+[07-Aug-2013 23:15:18] PHP Parse error:  syntax error, unexpected T_FUNCTION in /home4/naturfg4/public_html/tmp/ddd_master/app/Plugin/DebugKit/Controller/Component/ToolbarComponent.php on line 182
+[07-Aug-2013 23:15:41] PHP Parse error:  syntax error, unexpected T_FUNCTION in /home4/naturfg4/public_html/tmp/ddd_master/app/Plugin/DebugKit/Controller/Component/ToolbarComponent.php on line 182
+[08-Aug-2013 11:54:04] PHP Parse error:  syntax error, unexpected T_FUNCTION in /home4/naturfg4/public_html/tmp/ddd_master/app/Plugin/DebugKit/Controller/Component/ToolbarComponent.php on line 182
+[01-Oct-2016 09:26:54 UTC] PHP Warning:  Unterminated comment starting line 369 in /home/ourcpanl123/public_html/projects/sjsm_employee/app/Controller/EmployeesController.php on line 369
+[01-Oct-2016 09:26:54 UTC] PHP Parse error:  syntax error, unexpected end of file, expecting function (T_FUNCTION) in /home/ourcpanl123/public_html/projects/sjsm_employee/app/Controller/EmployeesController.php on line 369
+[04-Oct-2016 16:17:03 UTC] PHP Parse error:  syntax error, unexpected '}' in /home/ourcpanl123/public_html/projects/sjsm_employee/app/View/Employees/admin_save_file_upload.ctp on line 14
+[04-Oct-2016 16:17:44 UTC] PHP Parse error:  syntax error, unexpected '}' in /home/ourcpanl123/public_html/projects/sjsm_employee/app/View/Employees/admin_save_file_upload.ctp on line 14
