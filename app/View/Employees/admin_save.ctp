@@ -23,18 +23,8 @@
 		<div class="row inner_form"><!-- inner_form -->
 		<h1 class="list_no"><span>1</span></h1>
 			<?php
-				$model_name = 'Employee.';
-										
-				/* echo "<pre>";
+				$model_name = 'Employee.';										
 				
-				print_r($all_form_fields);
-				
-				echo "</pre>"; */
-				
-				/* foreach($all_form_fields as $key=>$val){
-					echo $val['FormSetting']['field_name']."<br>";
-				} */
-
 				foreach($general_form_fields as $field){
 				?>
 					<div class="col-sm-6">
@@ -315,13 +305,6 @@
 				//$model_name = 'Employee.';
 				//foreach($upload_section_form_fields as $field){
 					
-					//print_r($field);
-					/* $result = json_decode($val['FormSetting']['field_values']);
-					print_r($result);
-					
-					foreach($result as $key=>$val){
-						echo $val;
-					} */
 					
 				/* ?>
 					<div class="col-sm-12">
@@ -349,15 +332,7 @@
 						<th width="100px">Upload Date</th>
 						<th width="100px">Mandatory</th>
 						<th width="100px">Status</th>
-					</tr>
-					<!--tr>
-						<td>Drivers License</td>
-						<td><a href="#">driverslicenseSamTarwell.pdf</a></td>
-						<td>09-19-2016</td>
-						<td><input type="checkbox"></td>
-						<td>Uploaded</td>
-					</tr-->
-					
+					</tr>				
 					
 					<?php
 					
@@ -366,7 +341,6 @@
 						
 						foreach($this->request->data['Employee']['employee_upload_files'] as $key=>$val){
 
-							
 
 							$loop = explode("====",$val);
 							$loopdataarray = array();
@@ -376,29 +350,25 @@
 								$loopdatakey = $loopdata[0];
 								$loopdataarray[$loopdatakey] = $loopdata[1];
 							}
-							
-							$dataArr = "
-							'upload_file_Type'==='".$loopdataarray['upload_file_Type']."'====
-							'upload_file_Path'==='".$loopdataarray['upload_file_Path']."'====
-							'upload_file_Name'==='".$loopdataarray['upload_file_Name']."'====
-							'upload_file_Date'==='".$loopdataarray['upload_file_Date']."'====
-							'upload_file_Mandatory'==='".$loopdataarray['upload_file_Mandatory']."'====
-							'upload_file_Status'==='".$loopdataarray['upload_file_Status']."'";
-							//$this->webroot.'upload/employee/'.$first_name.'/'.
-							$first_name = $this->request->data['Employee']['first_name'];
-							$dataPrint = '<tr>
-								<td>'.$loopdataarray['upload_file_Type'].'</td>
-								<td>
-									<a target="_blank" href="'.$loopdataarray['upload_file_Path'].'">
-										'.$loopdataarray['upload_file_Name'].'
-									</a>
-								</td>
-								<td>'.$loopdataarray['upload_file_Date'].'</td>
-								<td><input type="checkbox" '.$loopdataarray['upload_file_Mandatory'].' name="data[Employee][employee_upload_files][]" value="'.$dataArr.'"></td>
-								<td>'.$loopdataarray['upload_file_Status'].'</td>
-							</tr>';
-							
-							echo $dataPrint;				
+							if(@$loopdataarray['upload_file_Name'] != ""){
+								
+								$dataArr = "'upload_file_Type'==='".@$loopdataarray['upload_file_Type']."'===='upload_file_Path'==='".@$loopdataarray['upload_file_Path']."'===='upload_file_Name'==='".@$loopdataarray['upload_file_Name']."'===='upload_file_Date'==='".@$loopdataarray['upload_file_Date']."'===='upload_file_Mandatory'==='".@$loopdataarray['upload_file_Mandatory']."'===='upload_file_Status'==='".@$loopdataarray['upload_file_Status']."'";
+								//$this->webroot.'upload/employee/'.$first_name.'/'.
+								$first_name = $this->request->data['Employee']['first_name'];
+								$dataPrint = '<tr>
+									<td>'.@$loopdataarray['upload_file_Type'].'</td>
+									<td>
+										<a target="_blank" href="'.@$loopdataarray['upload_file_Path'].'">
+											'.@$loopdataarray['upload_file_Name'].'
+										</a>
+									</td>
+									<td>'.@$loopdataarray['upload_file_Date'].'</td>
+									<td><input type="checkbox" '.@$loopdataarray['upload_file_Mandatory'].' name="data[Employee][employee_upload_files][]" value="'.$dataArr.'"></td>
+									<td>'.@$loopdataarray['upload_file_Status'].'</td>
+								</tr>';
+								
+								echo $dataPrint;
+							}			
 
 						}
 					}
@@ -463,7 +433,7 @@
 		<div class="row"><!-- inner_form -->
 			<div class="col-sm-6 submit_box">
 				<?php if(!empty($this->request->data['Employee']['id'])){ ?>
-					<input type="submit" class="second_page" name="data[Employee][Update_Employee]" value="Update">
+					<input type="submit" class="second_page" name="data[Employee][Save_Employee]" value="Update">
 				<?php }else{ ?>
 					<input type="submit" class="second_page" name="data[Employee][Save_Employee]" value="Save">
 				<?php } ?>
@@ -573,8 +543,8 @@ function closepopup()
 {
 	$("#light").fadeOut();
 	$("#fade").fadeOut();
-	$('#myfile').val("");
-	$('#images_preview').html("");
+	$("#myfile").val("");
+	$("#images_preview").html("");
 }
 
 function openpopup()
@@ -617,16 +587,18 @@ $(document).ready(function(e){
 			fileReader.readAsDataURL(fileToLoad);
 		}
 	}
-	/* $('#myfile').change( function(event) {
-		var tmppath = URL.createObjectURL(event.target.files[0]);
-		$('#images_preview').append('<input type="hidden" name="file_path" id="file_path" value="'+tmppath+'" />');
-	}); */
 
 	$("#submit_step1").live("click", function()
 	{	
 		var file_name = $('#myfile').val();
 		if(file_name == ""){
 			alert("File not uploaded.");
+			return false;
+		}
+		var val = file_name.toLowerCase();
+		var regex = new RegExp("(.*?)\.(docx|doc|ppt|pptx|jpeg|jpg|png|gif|pdf)$");
+		if(!(regex.test(val))) {
+			alert('Please select correct file format');
 			return false;
 		}
 		
@@ -637,8 +609,7 @@ $(document).ready(function(e){
 		$('#images_preview').append('<input type="hidden" name="file_name" id="file_name" value="'+file_name+'" />');
 		$('#print_file_name').html(file_name);
 		$('#loaderImg').html("");
-		$('#step1').fadeOut();
-		$('#step3').fadeOut();
+		$('#step1,#step3').fadeOut();
 		$('#step2').fadeIn();
 	});
 
@@ -657,12 +628,10 @@ $(document).ready(function(e){
 		}
 		$('#loaderImg').html('<div style="text-align:center"><img src="<?php echo $this->webroot; ?>img/ajax-loader.gif" /></div>');
 		
-		$('#loaderImg').html("");	
 		
 		$('#images_preview').append('<input type="hidden" name="file_type" id="file_type" value="'+file_type+'" />');
-		
-		$('#step1').fadeOut();
-		$('#step2').fadeOut();
+		$('#loaderImg').html("");
+		$('#step1,#step2').fadeOut();
 		$('#step3').fadeIn();
 		
 		var file_path = $('#file_path').val();
@@ -674,13 +643,20 @@ $(document).ready(function(e){
 		
 		setTimeout(function(){
 
-//var dataArr = "{'upload_file_Type':'"+file_type+"','upload_file_Path':'"+file_path+"','upload_file_Name':'"+file_name+"','upload_file_Date':'<?php echo date('m-d-Y'); ?>','upload_file_Mandatory':'checked','upload_file_Status':'Uploaded'}";
-var dataArr = "'upload_file_Type'==='"+file_type+"'===='upload_file_Path'==='"+file_path+"'===='upload_file_Name'==='"+file_name+"'===='upload_file_Date'==='<?php echo date('m-d-Y'); ?>'===='upload_file_Mandatory'==='checked'===='upload_file_Status'==='Uploaded'";
+			var dataArr = "'upload_file_Type'==='"+file_type+"'===='upload_file_Path'==='"+file_path+"'===='upload_file_Name'==='"+file_name+"'===='upload_file_Date'==='<?php echo date('m-d-Y'); ?>'===='upload_file_Mandatory'==='checked'===='upload_file_Status'==='Uploaded'";
+			
+/* 	var inp = '';
+	inp += '<input type="hidden" name="data[Employee][employee_upload_files][upload_file_Type][]" value="'+file_type+'">';		
+	inp += '<input type="hidden" name="data[Employee][employee_upload_files][upload_file_Path][]" value="'+file_path+'">';		
+	inp += '<input type="hidden" name="data[Employee][employee_upload_files][upload_file_Name][]" value="'+file_name+'">';		
+	inp += '<input type="hidden" name="data[Employee][employee_upload_files][upload_file_Date][]" value="<?php echo date('m-d-Y'); ?>">';		
+	inp += '<input type="hidden" name="data[Employee][employee_upload_files][upload_file_Mandatory][]" value="checked">';		
+	inp += '<input type="hidden" name="data[Employee][employee_upload_files][upload_file_Status][]" value="Uploaded">';	 */	
 		
-			$('#step2').fadeOut();
-			$('#step3').fadeOut();
+			$('#step2,#step3').fadeOut();
 			$('#step1').fadeIn();
-		$('#table_upload_data').append('<tr><td>'+file_type+'</td><td><a target="_blank" href="'+file_path+'">'+file_name+'</a></td><td><?php echo date('m-d-Y'); ?></td><td><input type="checkbox" checked name="data[Employee][employee_upload_files][]" value="'+dataArr+'"></td><td>Uploaded</td></tr>');
+			
+			$('#table_upload_data').append('<tr><td>'+file_type+'</td><td><a target="_blank" href="'+file_path+'">'+file_name+'</a></td><td><?php echo date('m-d-Y'); ?></td><td><input type="checkbox" checked name="data[Employee][employee_upload_files][]" value="'+dataArr+'"></td><td>Uploaded</td></tr>');
 			closepopup();
 			
 		}, 5000);
@@ -697,6 +673,61 @@ var dataArr = "'upload_file_Type'==='"+file_type+"'===='upload_file_Path'==='"+f
 		fileName:"myfile",
 		autoSubmit:false
 	}); */
+	function validateEmail(email) {
+		var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+		return re.test(email);
+	}
+	$("input[type=email]").live('blur', function(){
+		var email = $(this).val();
+		if(email == ""){
+			return false;
+		}
+		if(!validateEmail(email)){
+			alert("Email address is wrong");
+			return false;
+		}
+	});
+	$("#EmployeeFirstName").live('blur', function(){
+		var name = $(this).val();
+		if(name == ""){
+			alert("First name is empty.");
+			return false;
+		}
+		$.ajax({
+			type: 'POST',
+			url: "<?php echo $this->webroot; ?>admin/employees/save_file_upload",
+			data: {
+				first_name : name
+			},
+			success: function(data){
+				console.log(data);
+			},
+			error: function(xhr, textStatus, error){
+				$(this).trigger("click");
+			}
+		});
+	});
+	$("#EmployeeLastName").live('blur', function(){
+		var name = $(this).val();
+		if(name == ""){
+			alert("Last name is empty.");
+			return false;
+		}
+		$.ajax({
+			type: 'POST',
+			url: "<?php echo $this->webroot; ?>admin/employees/save_file_upload",
+			data: {
+				last_name : name
+			},
+			success: function(data){
+				console.log(data);
+			},
+			error: function(xhr, textStatus, error){
+				$(this).trigger("click");
+			}
+		});
+	});
+	
 });
 
 $(".firstpage_link").click(function(){

@@ -68,7 +68,18 @@ class EmployeesController extends AppController {
     }
 	//user list function end
     public function admin_save_file_upload() {
+
 		$this->layout = 'empty';
+		foreach($this->request->data as $key=>$val){
+			if($key == 'first_name'){
+				$emp_data = $this->Employee->find('first',array('conditions'=>array('Employee.first_name'=>"'".$val."'")));	
+			}
+			if($key == 'last_name'){		
+				$emp_data = $this->Employee->find('first',array('conditions'=>array('Employee.last_name'=>"'".$val."'")));	
+			}			
+			$this->set('emp_data',@$emp_data['Employee'][$val]);
+		}
+		
 	}
 	public function admin_tempsave() {
          if($this->Session->check('Auth.User')){
@@ -242,13 +253,12 @@ class EmployeesController extends AppController {
 		$upload_section_form_fields = $this->FormSetting->find('all',array('conditions'=>array('FormSetting.field_group'=>'upload_section','FormSetting.status'=>1,'FormSetting.form_id'=>1)));
         $this->set('upload_section_form_fields', $upload_section_form_fields);
 		
-			
 		
 		if (isset($this->request->data['Employee']['Save_Employee'])) {
 			
 			
 			/** For file uploading **/
-            $file_fields = $this->FormSetting->find('all',array('conditions'=>array('FormSetting.status'=>1,'FormSetting.form_id'=>1,'FormSetting.field_type'=>'file')));
+            $file_fields = $this->FormSetting->find('all',array('conditions'=>array('FormSetting.status'=>1,'FormSetting.form_id'=>1,'FormSetting.field_type'=>'file')));			
             foreach($file_fields as $frow){
                 $filename = '';
                 if (isset($this->request->data['Employee'][$frow['FormSetting']['field_name']]['tmp_name'])
@@ -257,9 +267,9 @@ class EmployeesController extends AppController {
                    // Strip path information
 					if (isset($this->request->data['Employee']['first_name'])) {
 						
-					$first_name = $this->request->data['Employee']['first_name'];
-                    $filename = $first_name ."/". time().'_'.basename($this->request->data['Employee'][$frow['FormSetting']['field_name']]['name']);
-					$dir = new Folder( WWW_ROOT . DS . 'upload/employee/'. $first_name , true, 0755);
+					$name = $this->request->data['Employee']['first_name'].@$this->request->data['Employee']['last_name'];
+                    $filename = $name ."/". time().'_'.basename($this->request->data['Employee'][$frow['FormSetting']['field_name']]['name']);
+					$dir = new Folder( WWW_ROOT . DS . 'upload/employee/'. $name , true, 0755);
                     move_uploaded_file(
                         $this->request->data['Employee'][$frow['FormSetting']['field_name']]['tmp_name'],
                         WWW_ROOT . DS . 'upload/employee/' . DS . $filename
@@ -268,7 +278,12 @@ class EmployeesController extends AppController {
 					
 					}
                 }else{
+					if($pid!=''){
+					$emp_data = $this->Employee->find('first',array('conditions'=>array('Employee.id'=>$pid)));
+					@$edata = json_decode($emp_data['Employee']['form_values'],true);
+					
                     $this->request->data['Employee'][$frow['FormSetting']['field_name']] = !empty($edata['Employee'][$frow['FormSetting']['field_name']])?$edata['Employee'][$frow['FormSetting']['field_name']]:'';
+					}
                 }
                 
             }
@@ -284,11 +299,7 @@ class EmployeesController extends AppController {
 					
 					if (isset($this->request->data['Employee'][$name])) {
 						$save_data['Employee'][$name] = $this->request->data['Employee'][$name];
-						$save_data['Employee']['modified_on'] = date("Y-m-d H:i:s");
-					}else{
-						$save_data['Employee']['created_on'] = date("Y-m-d H:i:s");
-					}
-					
+					}					
 					continue;
 				}
 				
@@ -305,48 +316,12 @@ class EmployeesController extends AppController {
 				if($name == 'email'){
 					
 					if (isset($this->request->data['Employee'][$name])) {
-						$save_data['Employee'][$name] = $this->request->data['Employee'][$name];
+						//$save_data['Employee'][$name] = $this->request->data['Employee'][$name];
 						$subscribe['Subscriber']['email'] = $this->request->data['Employee'][$name];
 					}
 					
-				}
-				//if(isset($this->request->data['Employee']['employee_upload_files_data'])){
-					//print_r($this->request->data['Employee']['employee_upload_files_data']);
-					//die('in');
-				//}//die('out');
-				
-				
-				if($name == 'employee_upload_files'){
+				}				
 					
-					
-					/* foreach($this->request->data['Employee']['employee_upload_files'] as $key=>$val){
-
-							
-
-						$loop = explode("====",$val);
-						$loopdataarray = array();
-						foreach($loop as $row=>$rowVal){
-							$loopdata = explode("===",$rowVal);
-							$loopdata = str_replace("'","",$loopdata);
-							$loopdatakey = $loopdata[0];
-							$loopdataarray[$loopdatakey] = $loopdata[1];
-						}
-						$f_name = $this->request->data['Employee']['first_name'];
-						$upload_file_Path = $loopdataarray['upload_file_Path'];
-						$upload_file_Name = $loopdataarray['upload_file_Name'];
-						
-						
-						$upload_file_data_link = WWW_ROOT . DS . "upload/employee/". $f_name ."/". $upload_file_Name;
-						
-						move_uploaded_file($upload_file_Path, $upload_file_data_link);
-						
-
-					} */
-					
-					
-				}			
-				
-				
 				if (isset($this->request->data['Employee'][$name])) {
 					$employee_row[$name] = $this->request->data['Employee'][$name];
 				}else{
@@ -359,21 +334,37 @@ class EmployeesController extends AppController {
 			
 			$save_data['Employee']['form_values'] = json_encode($employee_data);
 			
-			if($this->Employee->save($save_data)){
-                $subscribe['Subscriber']['modified_on'] = date("Y-m-d H:i:s");
-                $this->Subscriber->save($subscribe);
-                $this->Session->setFlash('Employee saved successfully.');
-                $this->redirect(array('admin'=>true,'action'=>'list'));
-            }
 			
-			/* if($this->Employee->save($save_data)){
-                $subscribe['Subscriber']['modified_on'] = date("Y-m-d H:i:s");
-                $this->Subscriber->save($subscribe);
-                $this->Session->setFlash('Employee saved successfully.');
-                $this->redirect(array('admin'=>true,'action'=>'list'));
-            } */
+			if(!$pid){
+				
+				$save_data['Employee']['created_on'] = date("Y-m-d H:i:s");
+				if($this->Employee->save($save_data)){
+					$subscribe['Subscriber']['modified_on'] = date("Y-m-d H:i:s");
+					$this->Subscriber->save($subscribe);
+					$this->Session->setFlash('Employee saved successfully.');
+					$this->redirect(array('admin'=>true,'action'=>'list'));
+				}
+				
+			}else{
 			
+				$this->Employee->id = $pid;
+				if (!$this->Employee->exists()) {
+					$this->Session->setFlash('Invalid Employee provided');
+					$this->redirect(array('admin'=>true,'action'=>'list'));
+				}				
+				
+				$this->Employee->saveField('first_name', $save_data['Employee']['first_name']);
+				$this->Employee->saveField('last_name', $save_data['Employee']['last_name']);
+				$this->Employee->saveField('form_values', $save_data['Employee']['form_values']);
+				$this->Employee->saveField('modified_on', date("Y-m-d H:i:s"));
+				
+				$this->Session->setFlash(__('Employee updated'));
+				$this->redirect(array('admin'=>true,'action' => 'list'));
+				
+			}
 			
+			//print_r($this->request->data['Employee']['id']);
+			//echo "<script> alert('ee-".print_r($save_data)."-dd');</script>";
 			//echo "<script> alert('ee-".json_encode($employee_data)."-dd');</script>";
 			//die;
 		}

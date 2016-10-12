@@ -1,23 +1,14 @@
 <script>
 $(function () {
-    
-    
-    var table = $('#emplist').DataTable( {
-                    "scrollX": false,
-                    "jQueryUI": false,
-                    "ordering": true,
-                    "info":     true,
-                    //"ajax": "<?=$this->base.'/kendras/ajax_kendra_list/'?>",
-                    "deferRender": true
-                });// table end
-                
-                          
-    
-   
+	var table = $('#emplist').DataTable( {
+		"scrollX": false,
+		"jQueryUI": false,
+		"ordering": true,
+		"info":     true,
+		//"ajax": "<?=$this->base.'/kendras/ajax_kendra_list/'?>",
+		"deferRender": true
+	});// table end
 });
-        
-          
-      
 </script>
 		   <!-- Content Header (Page header) -->
             <section class="content-header">
@@ -119,4 +110,6 @@ $(function () {
               </div><!-- /.row -->
             
             </section><!-- /.content -->
-
+			<style>
+			table.dataTable thead th{padding-left:0;padding-right:0;}
+			</style>
