@@ -462,7 +462,11 @@
 	<div class="content_cnt"><!-- content_cnt -->
 		<div class="row"><!-- inner_form -->
 			<div class="col-sm-6 submit_box">
-				<input type="submit" class="second_page" name="data[Employee][Save_Employee]" value="submit">
+				<?php if(!empty($this->request->data['Employee']['id'])){ ?>
+					<input type="submit" class="second_page" name="data[Employee][Update_Employee]" value="Update">
+				<?php }else{ ?>
+					<input type="submit" class="second_page" name="data[Employee][Save_Employee]" value="Save">
+				<?php } ?>
 			</div>
 			<div class="col-sm-6 submit_box">
 				<a href="javascript:;" class="firstpage_link" id="firstpage_link" />1</a>

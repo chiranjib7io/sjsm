@@ -49,7 +49,16 @@ $(function () {
                             			<th>#</th>
                             			<th>Employee Name</th>
                             			<th>Email</th>
-                            			
+										
+										<th>Date Applied</th>
+										<th>Citizen</th>
+										<th>Location</th>
+										<th>Position</th>
+										<th>Discipline 1</th>
+										<th>Discipline 2</th>
+										<th>Discipline 3</th>
+										<th>Created Date</th>
+										
                             			<th>Status</th>
                             			<th>Actions</th>
                             		</tr>
@@ -66,7 +75,20 @@ $(function () {
                             			<td><?php echo $count; ?></td>
                             			<td><?php echo $this->Html->link( $row['Employee']['fullname']  ,   array($this->params['prefix']=>true,'action'=>'view', $row['Employee']['id']),array('escape' => false) );?></td>
                             			<td><?php echo $emp_row['Employee']['email']; ?></td>
-                            			
+										
+                            			<td><?php echo (@$emp_row['Employee']['date_applied']=="")?"":$emp_row['Employee']['date_applied']; ?></td>
+                            			<td><?php echo (@$emp_row['Employee']['country_address']=="")?"":$emp_row['Employee']['country_address']; ?></td>
+                            			<td><?php 
+										echo (@$emp_row['Employee']['home_street']=="")?"":$emp_row['Employee']['home_street'].", ";
+										echo (@$emp_row['Employee']['address_city']=="")?"":$emp_row['Employee']['address_city'].", ";
+										echo (@$emp_row['Employee']['country_address']=="")?"":$emp_row['Employee']['country_address'];										
+										?></td>
+                            			<td><?php echo (@$emp_row['Employee']['Position']=="")?"":$emp_row['Employee']['Position']; ?></td>
+										
+                            			<td><?php echo (@$emp_row['Employee']['Discipline1']=="")?"":$emp_row['Employee']['Discipline1']; ?></td>
+                            			<td><?php echo (@$emp_row['Employee']['Discipline2']=="")?"":$emp_row['Employee']['Discipline2']; ?></td>
+                            			<td><?php echo (@$emp_row['Employee']['Discipline3']=="")?"":$emp_row['Employee']['Discipline3']; ?></td>
+                            			<td><?php echo $row['Employee']['created_on']; ?></td>
                             			<td ><?php echo ($row['Employee']['status']==1)?'Active':'Inactive'; ?></td>
                             			<td >view
                                         <?php //echo $this->Html->link(    "View",   array($this->params['prefix']=>true,'action'=>'view', $row['Employee']['id']) ); ?> | 
