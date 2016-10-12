@@ -72,10 +72,10 @@ class EmployeesController extends AppController {
 		$this->layout = 'empty';
 		foreach($this->request->data as $key=>$val){
 			if($key == 'first_name'){
-				$emp_data = $this->Employee->find('first',array('conditions'=>array('Employee.first_name'=>"'".$val."'")));	
+				$emp_data = $this->Employee->find('first',array('conditions'=>array('Employee.first_name'=>$val)));	
 			}
 			if($key == 'last_name'){		
-				$emp_data = $this->Employee->find('first',array('conditions'=>array('Employee.last_name'=>"'".$val."'")));	
+				$emp_data = $this->Employee->find('first',array('conditions'=>array('Employee.last_name'=>$val)));	
 			}			
 			$this->set('emp_data',@$emp_data['Employee'][$val]);
 		}
@@ -256,7 +256,6 @@ class EmployeesController extends AppController {
 		
 		if (isset($this->request->data['Employee']['Save_Employee'])) {
 			
-			
 			/** For file uploading **/
             $file_fields = $this->FormSetting->find('all',array('conditions'=>array('FormSetting.status'=>1,'FormSetting.form_id'=>1,'FormSetting.field_type'=>'file')));			
             foreach($file_fields as $frow){
@@ -336,6 +335,17 @@ class EmployeesController extends AppController {
 			
 			
 			if(!$pid){
+				
+				$this->Employee->first_name = $save_data['Employee']['first_name'];
+				if (!$this->Employee->exists()) {
+					$this->Session->setFlash('Employee first name already exist.');
+					$this->redirect(array('admin'=>true,'action'=>'list'));
+				}
+				$this->Employee->last_name = $save_data['Employee']['last_name'];
+				if (!$this->Employee->exists()) {
+					$this->Session->setFlash('Employee last name already exist.');
+					$this->redirect(array('admin'=>true,'action'=>'list'));
+				}
 				
 				$save_data['Employee']['created_on'] = date("Y-m-d H:i:s");
 				if($this->Employee->save($save_data)){

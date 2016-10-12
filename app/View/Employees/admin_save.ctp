@@ -687,7 +687,7 @@ $(document).ready(function(e){
 			return false;
 		}
 	});
-	$("#EmployeeFirstName").live('blur', function(){
+	/* $("#EmployeeFirstName").live('blur', function(){
 		var name = $(this).val();
 		if(name == ""){
 			alert("First name is empty.");
@@ -726,7 +726,7 @@ $(document).ready(function(e){
 				$(this).trigger("click");
 			}
 		});
-	});
+	}); */
 	
 });
 
