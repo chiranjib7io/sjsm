@@ -15,6 +15,7 @@
 
 <section class="content"><!-- content -->
 <div class="outer_content"><!--outer_content-->
+	<input class="btn-print" type="button" value="Print" onclick="window.print()">
 	<span style="color:red"><?php echo $this->Session->flash(); ?></span>
     <?php echo $this->Form->input('Employee.id', array('type' => 'hidden','label'=>false)); ?>
 	<div class="content_cnt first_page"><!-- content_cnt -->
@@ -31,9 +32,9 @@
 						<div class="input_box">
 					<?php
 					if(!empty($this->request->data['Employee'])){
-						echo $this->Slt->generate_form_field($field['FormSetting'],$model_name,$this->request->data['Employee']);  
+						echo $this->Slt->generate_form_field_view($field['FormSetting'],$model_name,$this->request->data['Employee']);  
 					}else{
-						echo $this->Slt->generate_form_field($field['FormSetting'],$model_name);  
+						echo $this->Slt->generate_form_field_view($field['FormSetting'],$model_name);  
 					}
 					?>
 						</div>
@@ -59,9 +60,9 @@
 						<div class="input_box">
 					<?php
 					if(!empty($this->request->data['Employee'])){
-						echo $this->Slt->generate_form_field($field['FormSetting'],$model_name,$this->request->data['Employee']);  
+						echo $this->Slt->generate_form_field_view($field['FormSetting'],$model_name,$this->request->data['Employee']);  
 					}else{
-						echo $this->Slt->generate_form_field($field['FormSetting'],$model_name);  
+						echo $this->Slt->generate_form_field_view($field['FormSetting'],$model_name);  
 					}
 					?>
 						</div>
@@ -87,9 +88,9 @@
 						<div class="input_box">
 					<?php
 					if(!empty($this->request->data['Employee'])){
-						echo $this->Slt->generate_form_field($field['FormSetting'],$model_name,$this->request->data['Employee']);  
+						echo $this->Slt->generate_form_field_view($field['FormSetting'],$model_name,$this->request->data['Employee']);  
 					}else{
-						echo $this->Slt->generate_form_field($field['FormSetting'],$model_name);  
+						echo $this->Slt->generate_form_field_view($field['FormSetting'],$model_name);  
 					}
 					?>
 						</div>
@@ -115,9 +116,9 @@
 						<div class="input_box">
 					<?php
 					if(!empty($this->request->data['Employee'])){
-						echo $this->Slt->generate_form_field($field['FormSetting'],$model_name,$this->request->data['Employee']);  
+						echo $this->Slt->generate_form_field_view($field['FormSetting'],$model_name,$this->request->data['Employee']);  
 					}else{
-						echo $this->Slt->generate_form_field($field['FormSetting'],$model_name);  
+						echo $this->Slt->generate_form_field_view($field['FormSetting'],$model_name);  
 					}
 					?>
 						</div>
@@ -143,9 +144,9 @@
 						<div class="input_box">
 					<?php
 					if(!empty($this->request->data['Employee'])){
-						echo $this->Slt->generate_form_field($field['FormSetting'],$model_name,$this->request->data['Employee']);  
+						echo $this->Slt->generate_form_field_view($field['FormSetting'],$model_name,$this->request->data['Employee']);  
 					}else{
-						echo $this->Slt->generate_form_field($field['FormSetting'],$model_name);  
+						echo $this->Slt->generate_form_field_view($field['FormSetting'],$model_name);  
 					}
 					?>
 						</div>
@@ -171,9 +172,9 @@
 						<div class="input_box">
 					<?php
 					if(!empty($this->request->data['Employee'])){
-						echo $this->Slt->generate_form_field($field['FormSetting'],$model_name,$this->request->data['Employee']);  
+						echo $this->Slt->generate_form_field_view($field['FormSetting'],$model_name,$this->request->data['Employee']);  
 					}else{
-						echo $this->Slt->generate_form_field($field['FormSetting'],$model_name);  
+						echo $this->Slt->generate_form_field_view($field['FormSetting'],$model_name);  
 					}
 					?>
 						</div>
@@ -199,9 +200,9 @@
 						<div class="input_box">
 					<?php
 					if(!empty($this->request->data['Employee'])){
-						print_r($this->Slt->generate_form_field($field['FormSetting'],$model_name,$this->request->data['Employee']));  
+						print_r($this->Slt->generate_form_field_view($field['FormSetting'],$model_name,$this->request->data['Employee']));  
 					}else{
-						echo $this->Slt->generate_form_field($field['FormSetting'],$model_name);  
+						echo $this->Slt->generate_form_field_view($field['FormSetting'],$model_name);  
 					}
 					?>
 						</div>
@@ -227,9 +228,9 @@
 						<div class="input_box">
 					<?php
 					if(!empty($this->request->data['Employee'])){
-						echo $this->Slt->generate_form_field($field['FormSetting'],$model_name,$this->request->data['Employee']);  
+						echo $this->Slt->generate_form_field_view($field['FormSetting'],$model_name,$this->request->data['Employee']);  
 					}else{
-						echo $this->Slt->generate_form_field($field['FormSetting'],$model_name);  
+						echo $this->Slt->generate_form_field_view($field['FormSetting'],$model_name);  
 					}
 					?>
 						</div>
@@ -255,9 +256,9 @@
 						<div class="input_box">
 					<?php
 					if(!empty($this->request->data['Employee'])){
-						echo $this->Slt->generate_form_field($field['FormSetting'],$model_name,$this->request->data['Employee']);  
+						echo $this->Slt->generate_form_field_view($field['FormSetting'],$model_name,$this->request->data['Employee']);  
 					}else{
-						echo $this->Slt->generate_form_field($field['FormSetting'],$model_name);  
+						echo $this->Slt->generate_form_field_view($field['FormSetting'],$model_name);  
 					}
 					?>
 						</div>
@@ -282,9 +283,9 @@
 						<div class="input_box">
 					<?php
 					if(!empty($this->request->data['Employee'])){
-						echo $this->Slt->generate_form_field($field['FormSetting'],$model_name,$this->request->data['Employee']);  
+						echo $this->Slt->generate_form_field_view($field['FormSetting'],$model_name,$this->request->data['Employee']);  
 					}else{
-						echo $this->Slt->generate_form_field($field['FormSetting'],$model_name);  
+						echo $this->Slt->generate_form_field_view($field['FormSetting'],$model_name);  
 					}
 					?>
 						</div>
@@ -304,13 +305,6 @@
 				//$model_name = 'Employee.';
 				//foreach($upload_section_form_fields as $field){
 					
-					//print_r($field);
-					/* $result = json_decode($val['FormSetting']['field_values']);
-					print_r($result);
-					
-					foreach($result as $key=>$val){
-						echo $val;
-					} */
 					
 				/* ?>
 					<div class="col-sm-12">
@@ -318,9 +312,9 @@
 						<div class="input_box">
 					<?php
 					if(!empty($this->request->data['Employee'])){
-						echo $this->Slt->generate_form_field($field['FormSetting'],$model_name,$this->request->data['Employee']);  
+						echo $this->Slt->generate_form_field_view($field['FormSetting'],$model_name,$this->request->data['Employee']);  
 					}else{
-						echo $this->Slt->generate_form_field($field['FormSetting'],$model_name);  
+						echo $this->Slt->generate_form_field_view($field['FormSetting'],$model_name);  
 					}
 					?>
 						</div>
@@ -338,15 +332,7 @@
 						<th width="100px">Upload Date</th>
 						<th width="100px">Mandatory</th>
 						<th width="100px">Status</th>
-					</tr>
-					<!--tr>
-						<td>Drivers License</td>
-						<td><a href="#">driverslicenseSamTarwell.pdf</a></td>
-						<td>09-19-2016</td>
-						<td><input type="checkbox"></td>
-						<td>Uploaded</td>
-					</tr-->
-					
+					</tr>				
 					
 					<?php
 					
@@ -354,49 +340,82 @@
 
 						
 						foreach($this->request->data['Employee']['employee_upload_files'] as $key=>$val){
-
 							
-
-							$loop = explode("====",$val);
-							$loopdataarray = array();
-							foreach($loop as $row=>$rowVal){
-								$loopdata = explode("===",$rowVal);
-								$loopdata = str_replace("'","",$loopdata);
-								$loopdatakey = $loopdata[0];
-								$loopdataarray[$loopdatakey] = $loopdata[1];
-							}
-							
-							if(@$loopdataarray['upload_file_Name'] != ""){
-								$dataArr = "
-								'upload_file_Type'==='".@$loopdataarray['upload_file_Type']."'====
-								'upload_file_Path'==='".@$loopdataarray['upload_file_Path']."'====
-								'upload_file_Name'==='".@$loopdataarray['upload_file_Name']."'====
-								'upload_file_Date'==='".@$loopdataarray['upload_file_Date']."'====
-								'upload_file_Mandatory'==='".@$loopdataarray['upload_file_Mandatory']."'====
-								'upload_file_Status'==='".@$loopdataarray['upload_file_Status']."'";
+	$inp = '';
+	$inp .= '<input type="hidden" name="data[Employee][employee_upload_files][upload_file_Type][]" value="'.@$val['upload_file_Type'].'">';		
+	$inp .= '<input type="hidden" name="data[Employee][employee_upload_files][upload_file_Path][]" value="'.@$val['upload_file_Path'].'">';		
+	$inp .= '<input type="hidden" name="data[Employee][employee_upload_files][upload_file_Name][]" value="'.@$val['upload_file_Name'].'">';		
+	$inp .= '<input type="hidden" name="data[Employee][employee_upload_files][upload_file_Date][]" value="'.@$val['upload_file_Date'].'">';		
+	$inp .= '<input type="checkbox" name="data[Employee][employee_upload_files][upload_file_Mandatory][]" '.@$val['upload_file_Mandatory'].' value="checked">';		
+	$inp .= '<input type="hidden" name="data[Employee][employee_upload_files][upload_file_Status][]" value="'.@$val['upload_file_Status'].'">';
+		
 								//$this->webroot.'upload/employee/'.$first_name.'/'.
-								$first_name = $this->request->data['Employee']['first_name'];
+								//$first_name = $this->request->data['Employee']['first_name'];
 								$dataPrint = '<tr>
-									<td>'.@$loopdataarray['upload_file_Type'].'</td>
+									<td>'.@$val['upload_file_Type'].'</td>
 									<td>
-										<a target="_blank" href="'.@$loopdataarray['upload_file_Path'].'">
-											'.@$loopdataarray['upload_file_Name'].'
+										<a target="_blank" href="'.@$val['upload_file_Path'].'">
+											'.@$val['upload_file_Name'].'
 										</a>
 									</td>
-									<td>'.@$loopdataarray['upload_file_Date'].'</td>
-									<td><input type="checkbox" '.@$loopdataarray['upload_file_Mandatory'].' name="data[Employee][employee_upload_files][]" value="'.$dataArr.'"></td>
-									<td>'.@$loopdataarray['upload_file_Status'].'</td>
-								</tr>';
-								
+									<td>'.@$val['upload_file_Date'].'</td>
+									<td>'.$inp.'</td>
+									<td>'.@$val['upload_file_Status'].'</td>
+								</tr>';	
 								echo $dataPrint;
-							}				
-
 						}
 					}
 					
 					?>					
 					
 				</table>
+				<div class="button_box">
+					    <div id="light" class="white_content"> 
+						    <div style="position:relative"><h5>Select File to Upload</h5>
+								<div class="content">
+								
+								        <div id="images_preview"></div>
+									    <div id="step1">
+											<h6>Step 1</h6>
+											<label>Upload File</label><input type="file" id="myfile" name="myfile[]">
+											<br>
+											<label>&nbsp;</label><input type="button" name="submit_file" id="submit_step1" value="Upload File">
+										</div>
+										<div id="step2" style="display: none;">
+											<h6>Step 2</h6>
+											<?php
+											$model_name = 'Employee.';
+											foreach($upload_section_form_fields as $field=>$val2){
+												//echo "<pre>";
+												//print_r($val2);echo "</pre>";
+												
+												$result = json_decode($val2['FormSetting']['field_values']);
+												
+												foreach($result as $key=>$val){
+												
+													echo '<label>'.$val.'</label><input type="checkbox" id="myfile_type" name="myfile_type[]" value="'.$val.'"><br>';
+												}
+												
+											}
+											?>
+											<label id="other_myfile_type_label" style="display: none;">&nbsp;</label><input type="text" id="other_myfile_type" name="other_myfile_type" style="display: none;">
+											<br>
+											<label>&nbsp;</label><span id="print_file_name"></span><br>
+											<label>&nbsp;</label><input type="button" name="submit_file" id="submit_step2" value="Upload Type">
+										</div>
+										<div id="step3" style="display: none;">
+											<h6>Step 3</h6>
+											<img src="<?php echo $this->webroot; ?>img/uploading.gif">
+										</div>
+										<div id="loaderImg"></div>
+										
+								</div> 
+								<br>
+								<a id="close_popup" href="javascript: void(0);" onclick="javascript: closepopup();" style="display: block;">Close</a> <!--  class="closebtn" -->
+						    </div>
+						</div>
+						<div id="fade" class="black_overlay"></div>
+				</div>
 			</div>
 			
 		</div><!-- End-inner_form -->
@@ -405,8 +424,6 @@
 	<div class="content_cnt"><!-- content_cnt -->
 		<div class="row"><!-- inner_form -->
 			<div class="col-sm-6 submit_box">
-				<a href="javascript:;" class="firstpage_link" id="firstpage_link" />1</a>
-				<a href="javascript:;" class="secondpage_link" id="secondpage_link" />2</a>
 			</div>
 			
 		</div><!-- End-inner_form -->
@@ -520,20 +537,8 @@ function openpopup()
 $(document).ready(function(e){
 
 
-	$(".firstpage_link").trigger("click");
-
 	$( ".datepicker" ).datepicker();
 	
-});
-
-$(".firstpage_link").click(function(){
-	$(".first_page").css("display","block");
-	$(".second_page").css("display","none");
-});
-
-$(".secondpage_link").click(function(){
-	$(".second_page").css("display","block");
-	$(".first_page").css("display","none");
 });
 
 </script>
