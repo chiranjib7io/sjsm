@@ -2,7 +2,7 @@
 <link href="<?php echo $this->webroot; ?>asset/plugins/multiselect/jquery.multiselect.css" rel="stylesheet"/>
 
 <script>
-    
+   
 $(function () {
 	var table = $('#emplist').DataTable( {
 		"scrollX": false,
@@ -97,7 +97,7 @@ $(document).ready(function() {
                                 <thead>
                             		<tr>
                             			<th>#</th>
-										<th>Date Applied</th>
+										<th>Applied on</th>
 										<th>Last Name</th>
 										<th>First Name</th>
 										<th>Status</th>
@@ -122,13 +122,13 @@ $(document).ready(function() {
                             			<td><?php echo $count; ?></td>
 										
                             			<td><?php echo (@$emp_row['Employee']['date_applied']=="")?"":$emp_row['Employee']['date_applied']; ?></td>
-										<td><?php echo $row['Employee']['last_name']; ?></td>
-										<td><?php echo $row['Employee']['first_name']; ?></td>
+										<td><?php echo $this->Html->link(    $row['Employee']['last_name'],   array($this->params['prefix']=>true,'action'=>'view', $row['Employee']['id']) ); ?><?php //echo $row['Employee']['last_name']; ?></td>
+										<td><?php echo $this->Html->link(    $row['Employee']['first_name'],   array($this->params['prefix']=>true,'action'=>'view', $row['Employee']['id']) ); ?><?php //echo $row['Employee']['first_name']; ?></td>
 										<td ><?php echo ($row['Employee']['status']==1)?'Active':'Inactive'; ?></td>
-                            			<td><?php echo (@$emp_row['Employee']['country_address']=="")?"":$emp_row['Employee']['country_address']; ?></td>
+                            			<td><?php echo (@$emp_row['Employee']['passport_holder']=="")?"":$emp_row['Employee']['passport_holder']; ?></td>
                             			<td><?php 
-										echo (@$emp_row['Employee']['home_street']=="")?"":$emp_row['Employee']['home_street'].", ";
-										echo (@$emp_row['Employee']['address_city']=="")?"":$emp_row['Employee']['address_city'].", ";
+										//echo (@$emp_row['Employee']['home_street']=="")?"":$emp_row['Employee']['home_street'].", ";
+										//echo (@$emp_row['Employee']['address_city']=="")?"":$emp_row['Employee']['address_city'].", ";
 										echo (@$emp_row['Employee']['country_address']=="")?"":$emp_row['Employee']['country_address'];										
 										?></td>
                             			<td><?php echo (@$emp_row['Employee']['Position']=="")?"":$emp_row['Employee']['Position']; ?></td>
@@ -136,18 +136,20 @@ $(document).ready(function() {
                             			<td><?php echo (@$emp_row['Employee']['Discipline1']=="")?"":$emp_row['Employee']['Discipline1']; ?></td>
                             			<td><?php echo (@$emp_row['Employee']['Discipline2']=="")?"":$emp_row['Employee']['Discipline2']; ?></td>
                             			<td><?php echo (@$emp_row['Employee']['Discipline3']=="")?"":$emp_row['Employee']['Discipline3']; ?></td>
+                                        
                             			<td >
-                                        <?php echo $this->Html->link(    "View",   array($this->params['prefix']=>true,'action'=>'view', $row['Employee']['id']) ); ?> | 
-                            			<?php echo $this->Html->link(    "Edit",   array($this->params['prefix']=>true,'action'=>'save', $row['Employee']['id']) ); ?> | 
-                                        <?php echo $this->Html->link(    "Delete", array($this->params['prefix']=>true,'action'=>'delete', $row['Employee']['id'])); ?> | 
+                                        <?php echo $this->Html->link(    "View",   array($this->params['prefix']=>true,'action'=>'view', $row['Employee']['id']) ); ?> <!--| 
+                            			<?php //echo $this->Html->link(    "Edit",   array($this->params['prefix']=>true,'action'=>'save', $row['Employee']['id']) ); ?> | 
+                                        <?php //echo $this->Html->link(    "Delete", array($this->params['prefix']=>true,'action'=>'delete', $row['Employee']['id'])); ?> | 
                             			<?php
                             				if( $row['Employee']['status'] == 0){ 
-                            					echo $this->Html->link(    "Re-Activate", array($this->params['prefix']=>true,'action'=>'activate', $row['Employee']['id']));
+                            					//echo $this->Html->link(    "Re-Activate", array($this->params['prefix']=>true,'action'=>'activate', $row['Employee']['id']));
                                                 }
                                             else{
-                            					echo $this->Html->link(    "De-Activate", array($this->params['prefix']=>true,'action'=>'deactivate', $row['Employee']['id']));
+                            					//echo $this->Html->link(    "De-Activate", array($this->params['prefix']=>true,'action'=>'deactivate', $row['Employee']['id']));
                             					}
                             			?>
+                                        -->
                             			</td>
                             		</tr>
                             		<?php endforeach; ?>
@@ -157,7 +159,7 @@ $(document).ready(function() {
 										$emp_row = "";
 										foreach($address_form_fields as $row)
 										{
-											if($row['FormSetting']['field_name'] == "country_address")
+											if($row['FormSetting']['field_name'] == "passport_holder")
 											{
 												$emp_row = $row['FormSetting']['field_values'];
 											}

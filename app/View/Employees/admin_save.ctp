@@ -3,17 +3,67 @@
 	<script src="<?php echo $this->webroot; ?>js/jquery-migrate-1.2.1.min.js"></script>
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    
+    <script>
+$(document).ready(function() {  
+   
+        var content_area = document.getElementById("maincontainer");
+        document.body.addEventListener("click", function(e) {
+          var target = e.target || e.srcElement;
+          
+          if (target !== content_area && !isChildOf(target, content_area)) {
+            if(confirm("You have not save the information. Do you save now?"))
+            {
+                
+                $( "#EmployeeSaveForm" ).submit();
+            }else{
+                alert("Ok. Let's go ahead..");
+            }
+            
+            
+          }
+        }, false);
+        
+        function isChildOf(child, parent) {
+          if (child.parentNode === parent) {
+            return true;
+          } else if (child.parentNode === null) {
+            return false;
+          } else {
+            return isChildOf(child.parentNode, parent);
+          }
+        }
+    
+});
+    </script>
+    
 </head>
 <div class="saveinfo_cnt">
+<?php
+if(!empty($this->request->data['Employee'])){
+?>
 <section class="content-header">
-<h1>Employee list <small>Control panel</small></h1>
+<h1>Employee Update <small>Control panel</small></h1>
 <ol class="breadcrumb">
 <li><a href="<?= $this->Html->url('/dashboard') ?>"><i class="fa fa-dashboard"></i> Home</a></li>
-<li class="active">Employee list</li>
+<li class="active">Employee update</li>
 </ol>
 </section>
+<?php
+}else{
+?>
+<section class="content-header">
+<h1>Employee Create <small>Control panel</small></h1>
+<ol class="breadcrumb">
+<li><a href="<?= $this->Html->url('/dashboard') ?>"><i class="fa fa-dashboard"></i> Home</a></li>
+<li class="active">Employee create</li>
+</ol>
+</section>
+<?php
+}
+?>
 
-<section class="content"><!-- content -->
+<section class="content" id="maincontainer"><!-- content -->
 <?php echo $this->Form->create('Employee',array('type' => 'file','admin'=>true,'controller'=>'employees','action'=>'save')); ?>
 <div class="outer_content"><!--outer_content-->
 	<span style="color:red"><?php echo $this->Session->flash(); ?></span>
@@ -325,13 +375,13 @@
 			?> 
 
 			<div class="col-sm-12">
-				<table id="table_upload_data">
+				<table id="table_upload_data" style="width:100%">
 					<tr>
-						<th width="100px">Type</th>
-						<th width="100px">File Name </th>
-						<th width="100px">Upload Date</th>
-						<th width="100px">Mandatory</th>
-						<th width="100px">Status</th>
+						<th width="20%">Type</th>
+						<th width="20%">File Name </th>
+						<th width="20%">Upload Date</th>
+						<th width="20%">Mandatory</th>
+						<th width="20%">Status</th>
 					</tr>				
 					
 					<?php
@@ -370,7 +420,7 @@
 					
 				</table>
 				<div class="button_box">
-				     <input type="button" onclick="openpopup();" style="width: auto !important;" value="Add file" > 
+				     <input type="button" onclick="openpopup();" style=" background-color:#ec786a;width: auto !important; color:#fff; padding:5px 10x;" value="Add file" > 
 					    <div id="light" class="white_content"> 
 						    <div style="position:relative"><h5>Select File to Upload</h5>
 								<div class="content">
@@ -378,9 +428,9 @@
 								        <div id="images_preview"></div>
 									    <div id="step1">
 											<h6>Step 1</h6>
-											<label>Upload File</label><input type="file" id="myfile" name="myfile[]">
+											<label style="margin-top:16px;">Upload File</label><input type="file" id="myfile" name="myfile[]">
 											<br>
-											<label>&nbsp;</label><input type="button" name="submit_file" id="submit_step1" value="Upload File">
+											<label>&nbsp;</label><input type="button" style="background-color:#eb5947; color:#fff; font-size16px;" name="submit_file" id="submit_step1" value="Upload File">
 										</div>
 										<div id="step2" style="display: none;">
 											<h6>Step 2</h6>
@@ -412,7 +462,7 @@
 										
 								</div> 
 								<br>
-								<a id="close_popup" href="javascript: void(0);" onclick="javascript: closepopup();" style="display: block;">Close</a> <!--  class="closebtn" -->
+								<a id="close_popup" href="javascript: void(0);" onclick="javascript: closepopup();" style="display: block; color:#000; font-size:16px;">Close</a> <!--  class="closebtn" -->
 						    </div>
 						</div>
 						<div id="fade" class="black_overlay"></div>
@@ -425,13 +475,9 @@
 	<div class="content_cnt"><!-- content_cnt -->
 		<div class="row"><!-- inner_form -->
 			<div class="col-sm-6 submit_box">
-				<?php if(!empty($this->request->data['Employee']['id'])){ ?>
-					<input type="submit" class="second_page" name="data[Employee][Save_Employee]" value="Update">
-				<?php }else{ ?>
-					<input type="submit" class="second_page" name="data[Employee][Save_Employee]" value="Save">
-				<?php } ?>
+				<button type="submit" class="saveBtn second_page">Save</button>
 			</div>
-			<div class="col-sm-6 submit_box">
+			<div class="col-sm-6">
 				<a href="javascript:;" class="firstpage_link" id="firstpage_link" />1</a>
 				<a href="javascript:;" class="secondpage_link" id="secondpage_link" />2</a>
 			</div>

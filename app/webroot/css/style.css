@@ -11,9 +11,9 @@
   font-weight: 600;
   margin-bottom: 25px;
   margin-top: 0;
-  text-transform: uppercase; margin-left:49px;
+  text-transform: uppercase; margin-left:49px; 
 }
-.saveinfo_cnt .content_cnt .inner_form{border:1px solid #fbd2cd; padding:40px 35px; margin:0 0 68px 0!important; position:relative;}
+.saveinfo_cnt .content_cnt .inner_form{border:1px solid #fbd2cd; padding:20px 35px 30px 35px; margin:0 0 40px 0!important; position:relative;}
  .content_cnt .inner_form label {
   color: #a5a5a5;
   float: left;
@@ -21,7 +21,7 @@
   margin-bottom: 0;
   max-width: 29%;
   width: 100%;
-  margin-right: 4px;
+  margin:0 4px 0 0;
 }
 .content_cnt .inner_form input, .content_cnt .inner_form select {
   border: 1px solid #d4d1d1;
@@ -31,11 +31,13 @@
   max-width: 70%;
   padding: 8px 5px;
   width: 100%;
+  margin-top:10px;
+ 
 }
 input[type=file]{
   height: auto!important;
 }
- .content_cnt .inner_form .input_box{width:100%; clear:both; margin-bottom:15px;}
+ .content_cnt .inner_form .input_box{width:100%; clear:both;}
  .content_cnt .inner_form .input_box::after{font-size:0px; line-height:0px; height:0px; content:'.'; visibility:hidden; display:block; clear:both;}
 .list_no {
   background: #d73925 none repeat scroll 0 0;
@@ -79,12 +81,41 @@ input[type=file]{
   max-width: 10%;
   width: 100%; text-indent:-10000px;
 }
- 
- 
- 
- 
- 
- 
+
+.firstpage_link, .secondpage_link{
+	    background-color: #fbfbfb;
+    border: 1px solid #ddd;
+	padding:5px 10px;
+	color:000;
+	}
+ .saveBtn{
+	 background-color: #eb5947 ;
+	 color:#fff;
+	 font-size: 16px;
+	 padding: 5px 10px;
+	 border-radius:4px;
+	 width: 80px;
+	 text-align: center;
+	 border:none;
+	 }
+ #step1 h6{font-size:16px; font-weight:bold;}
+ .editBtn {
+	 background-color:#c43d2c; 
+	 border-radius:4px; 
+	 padding:5px 15px;
+	 color:#fff;
+	 font-size:16px;
+	 margin-right:15px;
+ }
+ .delBtn{
+	 background-color:#404040;
+	 border-radius:4px; 
+	 padding:5px 15px;
+	color:#fff;
+	font-size:16px;
+ }
+ .white_content {border: 2px solid #eb5947!important;}
+ #light h5 {color:#d73925;}
  
  
  

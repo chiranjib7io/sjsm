@@ -3,19 +3,32 @@
 	<script src="<?php echo $this->webroot; ?>js/jquery-migrate-1.2.1.min.js"></script>
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+    function printDiv(divName) {
+         var printContents = document.getElementById(divName).innerHTML;
+         var originalContents = document.body.innerHTML;
+    
+         document.body.innerHTML = printContents;
+    
+         window.print();
+    
+         document.body.innerHTML = originalContents;
+    }
+    </script>
 </head>
 <div class="saveinfo_cnt">
 <section class="content-header">
-<h1>Employee list <small>Control panel</small></h1>
+<h1>View Employee <small>Control panel</small></h1>
 <ol class="breadcrumb">
 <li><a href="<?= $this->Html->url('/dashboard') ?>"><i class="fa fa-dashboard"></i> Home</a></li>
-<li class="active">Employee list</li>
+<li class="active">View Employee</li>
 </ol>
 </section>
 
-<section class="content"><!-- content -->
+<section class="content" id="printarea"><!-- content -->
+<input class="btn-print" type="button" value="Print" onclick="printDiv('printarea')"/>
 <div class="outer_content"><!--outer_content-->
-	<input class="btn-print" type="button" value="Print" onclick="window.print()">
+	
 	<span style="color:red"><?php echo $this->Session->flash(); ?></span>
     <?php echo $this->Form->input('Employee.id', array('type' => 'hidden','label'=>false)); ?>
 	<div class="content_cnt first_page"><!-- content_cnt -->
@@ -421,6 +434,11 @@
 		</div><!-- End-inner_form -->
 	</div><!-- End-content_cnt -->
 	
+	<div class="col-sm-12">
+		<a href="#" class="editBtn">Edit</a>
+		<a href="#"class="delBtn">Delete</a>
+	</div>
+			
 	<div class="content_cnt"><!-- content_cnt -->
 		<div class="row"><!-- inner_form -->
 			<div class="col-sm-6 submit_box">
