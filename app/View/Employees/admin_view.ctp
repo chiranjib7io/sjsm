@@ -64,7 +64,11 @@
                     
                     
                 
-                    <button type="submit" class="btn btn-primary btn-lg" >Submit</button>
+                    <div class="col-sm-12">
+        <?php echo $this->Html->link(    "Edit",   array($this->params['prefix']=>true,'action'=>'save', $this->request->data['Employee']['id']),'class="editBtn"' ); ?>
+        <?php echo $this->Html->link(    "Delete", array($this->params['prefix']=>true,'action'=>'delete', $this->request->data['Employee']['id']),'class="delBtn"'); ?>
+    	<?php echo $this->Html->link(    "Print",   array($this->params['prefix']=>true,'controller'=>'Prints','action'=>'employee_print', $this->request->data['Employee']['id']),'class="editBtn" target="_blank"' ); ?>
+	</div>
                 </div>
                 
               </div><!-- /.box -->
