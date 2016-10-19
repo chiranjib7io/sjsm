@@ -138,7 +138,14 @@ class SltHelper extends AppHelper {
                     if($ext=='jpg' || $ext=='jpeg' || $ext=='png' || $ext=='gif'){
                         $files = '<img src="'.$this->webroot.'upload/employee/'.$value[$arr['field_name']].'" width="100" />';
                     }else{
-                        $files = '<a href="'.$this->webroot.'upload/employee/'.$value[$arr['field_name']].'">'.$value[$arr['field_name']].'</a>';
+						if(is_array($value[$arr['field_name']]))
+						{
+							$files = "";
+						}
+						else
+						{
+							$files = '<a href="'.$this->webroot.'upload/employee/'.$value[$arr['field_name']].'">'.$value[$arr['field_name']].'</a>';
+						}                        
                     }
                 }
                 $field = '<div class="form-group">
@@ -149,8 +156,6 @@ class SltHelper extends AppHelper {
             
             return $field;
         }
-		
-		
 		
 		public function generate_form_field_view($arr,$model_name='',$value=[]){
 

@@ -65,6 +65,8 @@ class EmployeesController extends AppController {
         $this->set('title', 'Employee List');
 		$address_form_fields = $this->FormSetting->find('all',array('conditions'=>array('FormSetting.field_group'=>'address','FormSetting.status'=>1,'FormSetting.form_id'=>1)));
         $this->set('address_form_fields', $address_form_fields);
+		$all_form_fields = $this->FormSetting->find('all',array('conditions'=>array('FormSetting.status'=>1,'FormSetting.form_id'=>1)));
+        $this->set('all_form_fields', $all_form_fields);
 		$discipline_section_form_fields = $this->FormSetting->find('all',array('conditions'=>array('FormSetting.field_group'=>'discipline_section','FormSetting.status'=>1,'FormSetting.form_id'=>1)));
         $this->set('discipline_section_form_fields', $discipline_section_form_fields);
         $emp_data = $this->Employee->find('all',array('conditions'=>array('Employee.status !='=>2),'order'=>array('Employee.id')));
@@ -325,8 +327,10 @@ class EmployeesController extends AppController {
 				}
 				
 if($name == 'employee_upload_files'){
+	
 	$main = array();
-	if (is_array($this->request->data['Employee'][$name])){
+	$index1 = isset($this->request->data['Employee'][$name]) ? $this->request->data['Employee'][$name] : "";
+	if (is_array($index1)){
 		$count = isset($this->request->data['Employee'][$name]['upload_file_Mandatory']) ? count($this->request->data['Employee'][$name]['upload_file_Mandatory']) : 0;
 		for($i=0;$i<$count;$i++){
 			if(isset($this->request->data['Employee'][$name]['upload_file_Mandatory'][$i])){
@@ -918,7 +922,8 @@ $main[] = array(
 				
 if($name == 'employee_upload_files'){
 	$main = array();
-	if (is_array($this->request->data['Employee'][$name])){
+	$index1 = isset($this->request->data['Employee'][$name]) ? $this->request->data['Employee'][$name] : "";
+	if (is_array($index1)){
 		$count = isset($this->request->data['Employee'][$name]['upload_file_Mandatory']) ? count($this->request->data['Employee'][$name]['upload_file_Mandatory']) : 0;
 		for($i=0;$i<$count;$i++){
 			if(isset($this->request->data['Employee'][$name]['upload_file_Mandatory'][$i])){
