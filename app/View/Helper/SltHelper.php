@@ -149,6 +149,63 @@ class SltHelper extends AppHelper {
             
             return $field;
         }
+		
+		
+		
+		public function generate_form_field_view($arr,$model_name='',$value=[]){
+
+            App::uses('FormHelper', 'View/Helper');
+            $formHelper = new FormHelper(new View());
+            $field = '';
+            if($arr['field_type']=='text' || $arr['field_type']=='email' || $arr['field_type']=='number' || $arr['field_type']=='password'){
+				$data= !empty($value[$arr['field_name']])?$value[$arr['field_name']]:'';
+                $field = '<div class="form-group">
+                            <label for="'.$arr['field_name'].'">'.$arr['field_display_name'].'<font color="red">'.(($arr['is_required']=='required')?'*':'').'</font></label>
+                            '.$data.'
+                          </div>';
+            }
+            elseif($arr['field_type']=='select'){
+                $data= !empty($value[$arr['field_name']])?$value[$arr['field_name']]:'';
+                $field = '<div class="form-group">
+                            <label for="'.$arr['field_name'].'">'.$arr['field_display_name'].'<font color="red">'.(($arr['is_required']=='required')?'*':'').'</font></label>
+                            '.$data.'
+                          </div>';
+            }						
+			elseif($arr['field_type']=='datepicker')
+			{                
+					$data= !empty($value[$arr['field_name']])?$value[$arr['field_name']]:'';
+                $field = '<div class="form-group">
+                            <label for="'.$arr['field_name'].'">'.$arr['field_display_name'].'<font color="red">'.(($arr['is_required']=='required')?'*':'').'</font></label>
+                            '.$data.'
+                          </div>';
+			}
+            
+            elseif($arr['field_type']=='textarea'){
+                $data= !empty($value[$arr['field_name']])?$value[$arr['field_name']]:'';
+                $field = '<div class="form-group">
+                            <label for="'.$arr['field_name'].'">'.$arr['field_display_name'].'<font color="red">'.(($arr['is_required']=='required')?'*':'').'</font></label>
+                            '.$data.'
+                          </div>';
+            }
+            
+            elseif($arr['field_type']=='file'){
+                $files = '';
+                if(!empty($value[$arr['field_name']])){
+                    $ext = $this->get_file_extension($value[$arr['field_name']]);
+                    if($ext=='jpg' || $ext=='jpeg' || $ext=='png' || $ext=='gif'){
+                        $files = '<img src="'.$this->webroot.'upload/employee/'.$value[$arr['field_name']].'" width="100" />';
+                    }else{
+                        $files = '<a href="'.$this->webroot.'upload/employee/'.$value[$arr['field_name']].'">'.$value[$arr['field_name']].'</a>';
+                    }
+                }
+                $field = '<div class="form-group">
+                            <label for="'.$arr['field_name'].'">'.$arr['field_display_name'].'<font color="red">'.(($arr['is_required']=='required')?'*':'').'</font></label>'
+                            .$files.'<br>
+                          </div>';
+            }
+            
+            return $field;
+        }
     
     
 }
