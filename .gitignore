@@ -4,3 +4,4 @@
 /vendors
 .DS_Store
 tags
+app/View/Employees/admin_view.ctp
