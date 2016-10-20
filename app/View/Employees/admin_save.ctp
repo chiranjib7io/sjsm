@@ -1,9 +1,69 @@
-<head> 
+ 
 	<!--<script src="<?php //echo $this->webroot; ?>js/jquery.form.js"></script>-->
 	<script src="<?php echo $this->webroot; ?>js/jquery-migrate-1.2.1.min.js"></script>
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-</head>
+ 
+<style type="text/css" >
+
+.popContainer{background-color:#fafafa; margin:0 auto; padding:40px;}
+.container h2{background-color:#ea4531; font-size:16px; color:#fff; text-align:center; padding:10px 0; font-family:Helvetica, Arial, sans-serif; text-transform:uppercase; margin:0;}
+.popContainer h3{float:left; margin-top:6px; font-size:17px;}
+.greyBg{ border-radius:8px; padding: 15px 5px; font-weight: bold !important;  float: left;  color: #000 !important;
+    font-size: 17px;
+    margin-top: 6px; width: 66%;}
+.greyBg p{background:url(<?php echo $this->webroot; ?>IMAGES/uploadIcon.jpg) no-repeat 0 50%; padding:15px 0 15px 36px; font-family:Helvetica, Arial, sans-serif; font-size:16px; text-decoration:none;}
+.greyBg p a {color:#000; text-decoration:none;}
+.stepBg{width:50%; margin:40px auto; padding:50px 0;}
+.stepBtn{ background-color:#313131; padding:5px 0; text-align:center; color:#fff; font-size:16px; border-radius:4px; padding:10px 40px; text-align:center;text-decoration:none;}
+.stxt{text-align:right; color:#c82612; font-size:17px; position: absolute;
+    right: 29px; bottom: 3px;}
+
+.myfile_type_class { display:none;}
+.myfile_type_class + label { background:url(<?php echo $this->webroot; ?>IMAGES/notick.jpg) no-repeat 0 0;  height: 19px;  width: 20px;  display:inline-block;  padding: 0 0 0 0px; margin-right:15px;}
+.myfile_type_class:checked + label { background:url(<?php echo $this->webroot; ?>IMAGES/tick.jpg) no-repeat 0 0;  height: 19px;  width:20px; display:inline-block;  padding: 0 0 0 0px;}
+.otherTxt{width:60%; border-radius:4px; border:1px solid #ccc; height:30px; margin-bottom:20px;}
+.upBg{  padding:10px; width:50%; margin:0 auto; }
+ 
+.upBtn{ text-align:center; color:#fff; font-size:16px; background:#3a3939 url(<?php echo $this->webroot; ?>IMAGES/upBtn.jpg) no-repeat 3% 50%; border-radius:6px; text-align:center; text-decoration:none; padding:15px 0 15px 80px;}
+#step1 > input {
+    margin-top: 10px;
+}
+/*#submit_step1
+{
+    margin: -78px 17% 0 !important;background-color: #313131 !important;
+    border-radius: 4px !important;
+    color: #fff !important;
+    font-size: 19px !important;
+    padding: 5px 40px 15px !important;
+    text-align: center !important;
+    text-decoration: none; !important
+}*/
+.barContainer {padding:40px 5px;}
+
+.image-upload > input{ display: none;}
+.image-upload img{  width: 31px;  cursor: pointer; margin:8px 10px 0 0;}
+
+.white_content.popbx{padding:0px !important;  background-color: #fafafa !important; border:0 !important;}
+.white_content.popbx h5{background:#ea4531 !important; font-size:22px !important; float:left;width:100% !important;text-align:center !important; padding: 10px 0;
+    text-align: center !important;
+    text-transform: uppercase;
+    width: 100% !important; color:#fff !important;}
+	#close_popup {
+    position: absolute;
+    right: 19px;
+    text-align: center;
+    top: 46px;
+}
+#myfile{ float: left !important; width: 69% !important;margin-top:10px !important;}
+.content_cnt .inner_form label{max-width: inherit !important;}
+.uplodbx{ background-color: #f0f0f0 !important;
+    border-radius: 8px !important;
+margin:0px !important;
+    padding: 0 10px 8px !important; }
+</style> 
+ 
+ 
 <div class="saveinfo_cnt">
 <section class="content-header">
 <h1>Employee list <small>Control panel</small></h1>
@@ -371,19 +431,36 @@
 				</table>
 				<div class="button_box">
 				     <input type="button" onclick="openpopup();" style="width: auto !important;" value="Add file" > 
-					    <div id="light" class="white_content"> 
-						    <div style="position:relative"><h5>Select File to Upload</h5>
+					    <div id="light" class="white_content popbx"> 
+						    <div style="position:relative"><h5 id="headingID">Choose file</h5>
 								<div class="content">
-								
+								<div class="popContainerBx">
 								        <div id="images_preview"></div>
-									    <div id="step1">
-											<h6>Step 1</h6>
-											<label>Upload File</label><input type="file" id="myfile" name="myfile[]">
+									    <div id="step1" class="popContainer">
+											<label class="lbleBx">
+											<label class="greyBg image-upload">Upload File</label>
+											<div class="greyBg">
+                <div class="image-upload">
+    <label for="file-input" class="uplodbx">
+        <img src="<?php echo $this->webroot; ?>IMAGES/uploadIcon.jpg"/> Click to Select File
+    </label>
+    <input id="file-input" name="myfile[]" type="file"/>
+             </div>
+              
+            </div>
+											 </label>
+											
+											
+											
+			
+
 											<br>
-											<label>&nbsp;</label><input type="button" name="submit_file" id="submit_step1" value="Upload File">
+											<div class="upBg"><input type="button" name="submit_file" id="submit_step1" class="stepBtn" value="Click to Go Next Step">
+											</div>
+											<p class="stxt">Step 1 of 2</p>
 										</div>
-										<div id="step2" style="display: none;">
-											<h6>Step 2</h6>
+										<div id="step2" style="display: none;"> 
+											<div class="popContainer">
 											<?php
 											$model_name = 'Employee.';
 											foreach($upload_section_form_fields as $field=>$val2){
@@ -394,25 +471,33 @@
 												
 												foreach($result as $key=>$val){
 												
-													echo '<label>'.$val.'</label><input type="checkbox" id="myfile_type" name="myfile_type[]" value="'.$val.'"><br>';
+													echo '<label class="contentlabel">'.$val.'</label><input type="checkbox" id="myfile_type" name="myfile_type[]" value="'.$val.'" class="myfile_type_class"><br>';
+													
+													/*echo '<input name="thing" value="'.$val.'" id="myfile_type" name="myfile_type[]" type="checkbox">
+                                                      <label for="one"></label>'.$val.'<br><br>';*/
 												}
 												
 											}
-											?>
-											<label id="other_myfile_type_label" style="display: none;">&nbsp;</label><input type="text" id="other_myfile_type" name="other_myfile_type" style="display: none;">
+											?> 
+			
+											</div>
+											<label id="other_myfile_type_label" style="display: none;">&nbsp;</label><input type="text" id="other_myfile_type" name="other_myfile_type" style="display: none;"> 
 											<br>
 											<label>&nbsp;</label><span id="print_file_name"></span><br>
-											<label>&nbsp;</label><input type="button" name="submit_file" id="submit_step2" value="Upload Type">
+											
+   <div class="upBg"><input type="button" name="submit_file" id="submit_step2" value="Upload Now" class="upBtn">
+   </div>
+   <p class="stxt pop2">Step 2 of 2</p>
 										</div>
-										<div id="step3" style="display: none;">
-											<h6>Step 3</h6>
-											<img src="<?php echo $this->webroot; ?>img/uploading.gif">
+										<div id="step3" class="barContainer" style="display: none;"> 
+											<img src="<?php echo $this->webroot; ?>IMAGES/loading.gif">
 										</div>
 										<div id="loaderImg"></div>
 										
 								</div> 
+								</div> 
 								<br>
-								<a id="close_popup" href="javascript: void(0);" onclick="javascript: closepopup();" style="display: block;">Close</a> <!--  class="closebtn" -->
+								<!-- <a id="close_popup" href="javascript: void(0);" onclick="javascript: closepopup();" style="display: block;"><img src="<?php //echo $this->webroot; ?>IMAGES/Cancel.png"></a>  class="closebtn" -->
 						    </div>
 						</div>
 						<div id="fade" class="black_overlay"></div>
@@ -444,6 +529,35 @@
 </section><!-- End-content -->
 </div>
 <style>
+.contentlabel{float:left;}
+#myfile_type{float:left;}
+.contentlabel {
+    float: left !important;
+    width: 37% !important;
+	margin-top: 10px;
+}
+#myfile_type {
+    float: left !important;
+    width: 60% !important;
+	outline: medium none !important;
+}
+.popContainer {
+  
+    width: 100% !important;
+}
+/* #submit_step2{
+ background-color: #313131 !important;
+    border-radius: 4px !important;
+    color: #fff !important;
+    font-size: 18px !important;
+    padding: 5px 40px !important; 
+    text-align: center !important;
+    text-decoration: none;
+	position: relative;
+	 top: -18px;
+
+} */
+.stxt.pop2{bottom: -8px !important;}
 .black_overlay 
 {
 	display: none;
@@ -475,9 +589,10 @@
 	padding: 16px;
 	position: fixed;
 	top: 25%;
-	width: 40%;
+	width: 51%;
 	z-index: 1002;
 } 
+.lbleBx{width:100% !important;float:left !important; max-width: 100% !important;}
 #light h5 
 {
 	font-size: 16px;
@@ -529,6 +644,12 @@
 	left: 120px;
 	position: absolute;
 }
+.greyBg.image-upload {
+    width: 30% !important;
+}
+#close_popup img{width:45% !important; margin-top: -68px;}
+
+
 </style>
 <script>
 
@@ -536,12 +657,14 @@ function closepopup()
 {
 	$("#light").fadeOut();
 	$("#fade").fadeOut();
-	$("#myfile").val("");
+	$("#file-input").val("");
+	//$('#headingID').html("Choose file");
 	$("#images_preview").html("");
 }
 
 function openpopup()
 { 
+    $('#headingID').html("Choose file");
 	$("#light").fadeIn();
 	$("#fade").fadeIn(); 
 }
@@ -565,7 +688,7 @@ $(document).ready(function(e){
 	
 	function encodeImageFileAsURL() {
 
-		var filesSelected = document.getElementById("myfile").files;
+		var filesSelected = document.getElementById("file-input").files;
 		// console.log(URL.createObjectURL(filesSelected.target.files[0]));
 		if (filesSelected.length > 0) {
 		
@@ -583,7 +706,7 @@ $(document).ready(function(e){
 
 	$("#submit_step1").live("click", function()
 	{	
-		var file_name = $('#myfile').val();
+		var file_name = $('#file-input').val();
 		if(file_name == ""){
 			alert("File not uploaded.");
 			return false;
@@ -600,8 +723,9 @@ $(document).ready(function(e){
 		encodeImageFileAsURL();
 		
 		$('#images_preview').append('<input type="hidden" name="file_name" id="file_name" value="'+file_name+'" />');
-		$('#print_file_name').html(file_name);
-		$('#loaderImg').html("");
+		//$('#print_file_name').html("Filename: "+file_name);
+		$('#loaderImg').html("");  
+		$('#headingID').html("Choose file type");
 		$('#step1,#step3').fadeOut();
 		$('#step2').fadeIn();
 	});
@@ -655,7 +779,7 @@ $(document).ready(function(e){
 			
 		}, 5000);
 		$("#myfile_type:checked").prop("checked",false);	
-		
+		$('#headingID').html("Progress");
 	});
 
 	$(".firstpage_link").trigger("click");
@@ -735,3 +859,10 @@ $(".secondpage_link").click(function(){
 });
 
 </script>
+
+<style>
+#print_file_name {
+    display: block;
+    margin-top: 53px;
+}
+</style>
