@@ -78,7 +78,30 @@ $('.select_filter').on( 'change', function () {
 
 
 $("#emplist thead th").each( function ( i ) {
+	
+    //console.log($(this).text());
+    if ($(this).text() == 'Status') {
+        var isStatusColumn = (($(this).text() == 'Status') ? true : false);
+		var select = $('<select><option value="">Status</option></select>')
+            .appendTo( $(this).empty() )
+            .on( 'change', function () {
+                var val = $(this).val();
+				
+                table.column( i )
+                    .search( val ? '^'+$(this).val()+'$' : val, true, false )
+                    .draw();
+            } );
+ 		
 		
+        // All other non-Status columns (like the example)
+		table.column( i ).data().unique().sort().each( function ( d, j ) {  
+			if(d!==""){
+			     select.append( '<option value="'+d+'">'+d+'</option>' );
+            }
+        } );
+        
+	}
+    	
 	if ($(this).text() == 'Citizen') {
         var isStatusColumn = (($(this).text() == 'Citizen') ? true : false);
 		var select = $('<select><option value="">Citizen</option></select>')
@@ -94,10 +117,103 @@ $("#emplist thead th").each( function ( i ) {
 		
         // All other non-Status columns (like the example)
 		table.column( i ).data().unique().sort().each( function ( d, j ) {  
-			select.append( '<option value="'+d+'">'+d+'</option>' );
+			if(d!==""){
+			     select.append( '<option value="'+d+'">'+d+'</option>' );
+            }
         } );
         
 	}
+    
+    if ($(this).text() == 'Location') {
+        var isStatusColumn = (($(this).text() == 'Location') ? true : false);
+		var select = $('<select><option value="">Location</option></select>')
+            .appendTo( $(this).empty() )
+            .on( 'change', function () {
+                var val = $(this).val();
+				
+                table.column( i )
+                    .search( val ? '^'+$(this).val()+'$' : val, true, false )
+                    .draw();
+            } );
+ 		
+		
+        // All other non-Status columns (like the example)
+		table.column( i ).data().unique().sort().each( function ( d, j ) {  
+			if(d!==""){
+			     select.append( '<option value="'+d+'">'+d+'</option>' );
+            }
+        } );
+        
+	}
+    
+    if ($(this).text() == 'Discipline 1') {
+        var isStatusColumn = (($(this).text() == 'Discipline 1') ? true : false);
+		var select = $('<select><option value="">Discipline 1</option></select>')
+            .appendTo( $(this).empty() )
+            .on( 'change', function () {
+                var val = $(this).val();
+				
+                table.column( i )
+                    .search( val ? '^'+$(this).val()+'$' : val, true, false )
+                    .draw();
+            } );
+ 		
+		
+        // All other non-Status columns (like the example)
+		table.column( i ).data().unique().sort().each( function ( d, j ) {  
+			if(d!==""){
+			     select.append( '<option value="'+d+'">'+d+'</option>' );
+            }
+        } );
+        
+	}
+    
+    if ($(this).text() == 'Discipline 2') {
+        var isStatusColumn = (($(this).text() == 'Discipline 2') ? true : false);
+		var select = $('<select><option value="">Discipline 2</option></select>')
+            .appendTo( $(this).empty() )
+            .on( 'change', function () {
+                var val = $(this).val();
+				
+                table.column( i )
+                    .search( val ? '^'+$(this).val()+'$' : val, true, false )
+                    .draw();
+            } );
+ 		
+		
+        // All other non-Status columns (like the example)
+		table.column( i ).data().unique().sort().each( function ( d, j ) {  
+			if(d!==""){
+			     select.append( '<option value="'+d+'">'+d+'</option>' );
+            }
+        } );
+        
+	}
+    
+    if ($(this).text() == 'Discipline 3') {
+        var isStatusColumn = (($(this).text() == 'Discipline 3') ? true : false);
+		var select = $('<select><option value="">Discipline 3</option></select>')
+            .appendTo( $(this).empty() )
+            .on( 'change', function () {
+                var val = $(this).val();
+				
+                table.column( i )
+                    .search( val ? '^'+$(this).val()+'$' : val, true, false )
+                    .draw();
+            } );
+ 		
+		
+        // All other non-Status columns (like the example)
+		table.column( i ).data().unique().sort().each( function ( d, j ) { 
+		  if(d!==""){
+			select.append( '<option value="'+d+'">'+d+'</option>' );
+            }
+        } );
+        
+	}
+    
+    
+    
 } );
 	
 	
@@ -134,24 +250,7 @@ $("#emplist thead th").each( function ( i ) {
 										<th>Applied on</th>
 										<th>Last Name</th>
 										<th>First Name</th>
-										<th>
-                                        <select class="column_filter select_filter" data-column="4" >
-                							<option value="">Status</option>
-                							<?php
-                                            $emp_row = "";
-            								foreach($discipline_section_form_fields as $row)
-            								{
-            									if($row['FormSetting']['field_name'] == "Faulty_Status")
-            									{
-            										$emp_row = $row['FormSetting']['field_values'];
-            									}
-            								}
-                							foreach(json_decode($emp_row,true) as $k => $c){
-                							?>
-                							<option value="<?=$k?>"><?=$c?></option>
-                							<?php } ?>
-                						</select>
-                                        </th>
+										<th>Status</th>
 										<th>Citizen</th>
 										<th>Location</th>
 										<th>Position</th>
