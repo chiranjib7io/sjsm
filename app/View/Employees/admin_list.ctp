@@ -11,7 +11,8 @@ $(function () {
 		"ordering": true,
 		"info":     true,
 		//"ajax": "<?=$this->base.'/kendras/ajax_kendra_list/'?>",
-		"deferRender": true
+		"deferRender": true,
+        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]
 		
 	});// table end
 });
