@@ -12,17 +12,31 @@ $(document).ready(function() {
         $('#EmployeeSaveForm input').on( 'input', function() {
           //This would be called if any of the input element has got a change inside the form
           isChanged = true;
+          
+        }); 
+        
+        $('#EmployeeSaveForm textarea').on( 'input', function() {
+          //This would be called if any of the input element has got a change inside the form
+          isChanged = true;
+          
+        });
+        $('#EmployeeSaveForm select').on( 'input', function() {
+          //This would be called if any of the input element has got a change inside the form
+          isChanged = true;
+          
         }); 
    
         var content_area = document.getElementById("maincontainer");
         document.body.addEventListener("click", function(e) {
+            
             if(isChanged==true){
+                
                 var target = e.target || e.srcElement;
-          
-                  if (target !== content_area && !isChildOf(target, content_area)) {
+                //console.log(e.path[0].className);
+                
+                  if (target !== content_area && !isChildOf(target, content_area) && e.path[0].className!== 'ui-icon ui-icon-circle-triangle-w' && e.path[0].className!== 'ui-icon ui-icon-circle-triangle-e' && e.path[0].className!== 'ui-datepicker-title' && e.path[0].className!== 'ui-datepicker-month' && e.path[0].className!== 'ui-datepicker-year' && e.path[0].className!== 'ui-datepicker-next ui-corner-all ui-state-hover ui-datepicker-next-hover' && e.path[0].className!== 'ui-datepicker-prev ui-corner-all ui-state-hover ui-datepicker-prev-hover' && e.path[0].className!== 'ui-datepicker-header ui-widget-header ui-helper-clearfix ui-corner-all' && e.path[0].className!== 'ui-datepicker ui-widget ui-widget-content ui-helper-clearfix ui-corner-all') {
                     if(confirm("You have not save the information. Do you want to save now?"))
                     {
-                        
                         $( "#EmployeeSaveForm" ).submit();
                     }else{
                         alert("Ok. Let's go ahead..");
