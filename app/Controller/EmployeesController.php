@@ -1146,6 +1146,35 @@ $main[] = array(
 /* **************************************** Front Section End *************************************************************************/
 /* ************************************************************************************************************************************/
 
-
-
+	public function admin_fileDelete($eid='', $filename='', $upload_file_Type='', $upload_file_Date='', $upload_file_Status='') 
+	{   
+		if($eid != '')
+		{
+			$filenametoDelete   = base64_decode($filename);
+			$employeeID         = $eid;
+			$upload_file_Type   = base64_decode($upload_file_Type);
+			$upload_file_Date   = base64_decode($upload_file_Date);
+			$upload_file_Status = base64_decode($upload_file_Status); 
+			$emp_data = $this->Employee->find('first',array('conditions'=>array('Employee.id'=>$employeeID))); 
+			@$edata = json_decode($emp_data['Employee']['form_values'],true); 
+			if( is_array($edata['Employee']['employee_upload_files']) and count($edata['Employee']['employee_upload_files']) > 0 )
+			{
+				 foreach($edata['Employee']['employee_upload_files'] as $key=>$val)
+				 {
+					  if( ($val['upload_file_Type'] == $upload_file_Type) and ($val['upload_file_Date'] == $upload_file_Date) and ($val['upload_file_Status'] == $upload_file_Status) and ($val['upload_file_Name'] == $filenametoDelete) )
+					  { 
+						     unset($edata['Employee']['employee_upload_files'][$key]);
+							 break;
+					  } 
+				 } 
+			}  
+		   $edata['Employee']['modified_on'] = date("Y-m-d H:i:s");
+		   $emp_data['Employee']['form_values'] = json_encode($edata); 
+		   if($this->Employee->save($emp_data)){  
+				 $this->redirect(array('admin'=>true,'action'=>'save', $eid, "messg"=>"deleted")); 
+		   }  
+		}  
+		die;
+	}  
+	
 }

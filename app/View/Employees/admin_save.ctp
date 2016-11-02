@@ -137,13 +137,19 @@ margin:0px !important;
 <div class="outer_content"><!--outer_content-->
 	<span style="color:red"><?php echo $this->Session->flash(); ?></span>
     <?php echo $this->Form->input('Employee.id', array('type' => 'hidden','label'=>false)); ?>
+	<?php
+	    $pos = strpos($_SERVER['REQUEST_URI'], "messg:deleted"); 
+		if ($pos === false) {  // was not found 
+		} else { // was found 
+			  echo "<span style='color: red;'>File has been deleted successfully</span>";
+		}
+	?>
 	<div class="content_cnt first_page"><!-- content_cnt -->
 	<h2>General Information :-</h2>
 		<div class="row inner_form"><!-- inner_form -->
 		<h1 class="list_no"><span>1</span></h1>
 			<?php
-				$model_name = 'Employee.';										
-				
+				$model_name = 'Employee.';	 
 				foreach($general_form_fields as $field){
 				?>
 					<div class="col-sm-6">
@@ -201,14 +207,16 @@ margin:0px !important;
 						<th width="100px">Upload Date</th>
 						<th width="100px">Mandatory</th>
 						<th width="100px">Status</th>
-						<th width="100px">Action</th>
+						<?php if(!empty($this->request->data['Employee']['employee_upload_files'])){ ?>
+							   <th width="100px">Action</th> 
+						<?php	  
+						} ?> 
 					</tr>				
 					
 					<?php
 				
 					if(!empty($this->request->data['Employee']['employee_upload_files'])){
-
-						
+  
 						foreach($this->request->data['Employee']['employee_upload_files'] as $key=>$val){
 							
 	$inp = '';
@@ -231,12 +239,11 @@ margin:0px !important;
 									<td>'.@$val['upload_file_Date'].'</td>
 									<td>'.$inp.'</td>
 									<td>'.@$val['upload_file_Status'].'</td>
-									<td><a href="">Delete</a></td>
+									<td><a href="'.$this->webroot.'admin/employees/fileDelete/'.$this->request->data['Employee']['id'].'/'.base64_encode($val['upload_file_Name']).'/'.base64_encode($val['upload_file_Type']).'/'.base64_encode($val['upload_file_Date']).'/'.base64_encode($val['upload_file_Status']).'">Delete</a></td>
 								</tr>';	
 								echo $dataPrint;
 						}
-					}
-					
+					} 
 					?>					
 					
 				</table>
