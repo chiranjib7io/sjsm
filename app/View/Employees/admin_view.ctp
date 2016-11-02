@@ -11,6 +11,16 @@
 
 <div class="outer_content"><!--outer_content-->
 	
+    <div class="col-sm-4" style="float: right;">
+        <?php echo $this->Html->link(    "Edit",   array($this->params['prefix']=>true,'action'=>'save', $this->request->data['Employee']['id']),'class="editBtn"' ); ?>    
+        <?php 
+        if(!empty($userData['user_type_id']) && ($userData['user_type_id']==2 || $userData['user_type_id']==1)){
+            echo $this->Html->link( "Delete", array($this->params['prefix']=>true,'action'=>'delete', $this->request->data['Employee']['id']),'class="delBtn" onclick="return confirm(\'Are you sure you want to delete this Employee?\');"'); 
+        }
+        ?>
+    	<?php echo $this->Html->link(    "Print",   array($this->params['prefix']=>true,'controller'=>'Prints','action'=>'employee_print', $this->request->data['Employee']['id']),'class="editBtn" target="_blank"' ); ?>
+	</div>
+    
 	<span style="color:red"><?php echo $this->Session->flash(); ?></span>
     <?php echo $this->Form->input('Employee.id', array('type' => 'hidden','label'=>false)); ?>
 	<div class="content_cnt first_page"><!-- content_cnt -->
@@ -374,15 +384,7 @@
 		</div><!-- End-inner_form -->
 	</div><!-- End-content_cnt -->
 	
-	<div class="col-sm-12">
-        <?php echo $this->Html->link(    "Edit",   array($this->params['prefix']=>true,'action'=>'save', $this->request->data['Employee']['id']),'class="editBtn"' ); ?>    
-        <?php 
-        if(!empty($userData['user_type_id']) && ($userData['user_type_id']==2 || $userData['user_type_id']==1)){
-            echo $this->Html->link( "Delete", array($this->params['prefix']=>true,'action'=>'delete', $this->request->data['Employee']['id']),'class="delBtn" onclick="return confirm(\'Are you sure you want to delete this Employee?\');"'); 
-        }
-        ?>
-    	<?php echo $this->Html->link(    "Print",   array($this->params['prefix']=>true,'controller'=>'Prints','action'=>'employee_print', $this->request->data['Employee']['id']),'class="editBtn" target="_blank"' ); ?>
-	</div>
+	
 			
 	<div class="content_cnt"><!-- content_cnt -->
 		<div class="row"><!-- inner_form -->
