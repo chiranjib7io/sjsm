@@ -4737,10 +4737,10 @@ input[type=checkbox] + label:before {
   display: inline-block;
 }
 
-input[type=checkbox] + label:before { content: "\f12a";} /* unchecked icon */
-input[type=checkbox] + label:before { letter-spacing: 10px; } /* space between checkbox and label */
+input[type=checkbox] + label:before { content: "\f12a"; color:#fff; padding-left:4px;} /* unchecked icon */
+input[type=checkbox] + label:before { letter-spacing: 5px; } /* space between checkbox and label */
 
-input[type=checkbox]:checked + label:before { content: "\f122"; } /* checked icon */
+input[type=checkbox]:checked + label:before { content: "\f122";color:#fff; padding-left:4px; } /* checked icon */
 input[type=checkbox]:checked + label:before { letter-spacing: 5px; } /* allow space for check mark */
 
 .clear

@@ -795,6 +795,12 @@ $main[] = array(
      public function lists(){
         $this->layout = 'panel_layout';
         $this->set('title', 'Employee List');
+		$address_form_fields = $this->FormSetting->find('all',array('conditions'=>array('FormSetting.field_group'=>'address','FormSetting.status'=>1,'FormSetting.form_id'=>1)));
+        $this->set('address_form_fields', $address_form_fields);
+		$all_form_fields = $this->FormSetting->find('all',array('conditions'=>array('FormSetting.status'=>1,'FormSetting.form_id'=>1)));
+        $this->set('all_form_fields', $all_form_fields);
+		$discipline_section_form_fields = $this->FormSetting->find('all',array('conditions'=>array('FormSetting.field_group'=>'discipline_section','FormSetting.status'=>1,'FormSetting.form_id'=>1)));
+        $this->set('discipline_section_form_fields', $discipline_section_form_fields);
         $emp_data = $this->Employee->find('all',array('conditions'=>array('Employee.status !='=>2),'order'=>array('Employee.id')));
         $this->set('emp_data',$emp_data);
        
@@ -802,10 +808,64 @@ $main[] = array(
      public function view($id=''){
         $this->layout = 'panel_layout';
         $this->set('title', 'Employee Details');
-        $emp_data = $this->Employee->find('first',array('conditions'=>array('Employee.status'=>1,'Employee.id'=>$id)));
+        /* $emp_data = $this->Employee->find('first',array('conditions'=>array('Employee.status'=>1,'Employee.id'=>$id)));
         $emp_values = $emp_data['Employee']['form_values'];
         $this->set('emp_data',$emp_data);
-        $this->set('emp_values',$emp_values);
+        $this->set('emp_values',$emp_values); */
+		
+		
+		
+		//$emp_data = $this->Employee->find('first',array('conditions'=>array('Employee.id'=>$pid)));
+		$emp_data = $this->Employee->find('first',array('conditions'=>array('Employee.status'=>1,'Employee.id'=>$id)));
+		$this->request->data = json_decode($emp_data['Employee']['form_values'],true); 
+		$this->request->data['Employee']['id'] = $emp_data['Employee']['id'];
+		$this->request->data['Employee']['first_name'] = $emp_data['Employee']['first_name'];
+		$this->request->data['Employee']['last_name'] = $emp_data['Employee']['last_name'];
+		
+		
+		/** For generating the Form field in the view **/
+		
+		$all_form_fields = $this->FormSetting->find('all',array('conditions'=>array('FormSetting.status'=>1,'FormSetting.form_id'=>1)));
+        $this->set('all_form_fields', $all_form_fields);
+		
+        $general_form_fields = $this->FormSetting->find('all',array('conditions'=>array('FormSetting.field_group'=>'general','FormSetting.status'=>1,'FormSetting.form_id'=>1)));
+        $this->set('general_form_fields', $general_form_fields);
+        
+        $phone_form_fields = $this->FormSetting->find('all',array('conditions'=>array('FormSetting.field_group'=>'phone','FormSetting.status'=>1,'FormSetting.form_id'=>1)));
+        $this->set('phone_form_fields', $phone_form_fields);
+        
+        $address_form_fields = $this->FormSetting->find('all',array('conditions'=>array('FormSetting.field_group'=>'address','FormSetting.status'=>1,'FormSetting.form_id'=>1)));
+        $this->set('address_form_fields', $address_form_fields);
+        
+        $experience_form_fields = $this->FormSetting->find('all',array('conditions'=>array('FormSetting.field_group'=>'experience','FormSetting.status'=>1,'FormSetting.form_id'=>1)));
+        $this->set('experience_form_fields', $experience_form_fields);
+        
+        $emergency_form_fields = $this->FormSetting->find('all',array('conditions'=>array('FormSetting.field_group'=>'emergency_contact','FormSetting.status'=>1,'FormSetting.form_id'=>1)));
+        $this->set('emergency_form_fields', $emergency_form_fields);
+        
+        $notes_form_fields = $this->FormSetting->find('all',array('conditions'=>array('FormSetting.field_group'=>'notes','FormSetting.status'=>1,'FormSetting.form_id'=>1)));
+        $this->set('notes_form_fields', $notes_form_fields);
+        
+        $attachment_form_fields = $this->FormSetting->find('all',array('conditions'=>array('FormSetting.field_group'=>'attachment','FormSetting.status'=>1,'FormSetting.form_id'=>1)));
+        $this->set('attachment_form_fields', $attachment_form_fields);
+        
+		$education_form_fields = $this->FormSetting->find('all',array('conditions'=>array('FormSetting.field_group'=>'education','FormSetting.status'=>1,'FormSetting.form_id'=>1)));
+        $this->set('education_form_fields', $education_form_fields);
+		
+		$reserch_experience_form_fields = $this->FormSetting->find('all',array('conditions'=>array('FormSetting.field_group'=>'reserch_experience','FormSetting.status'=>1,'FormSetting.form_id'=>1)));
+        $this->set('reserch_experience_form_fields', $reserch_experience_form_fields);		
+		
+		$contract_section_form_fields = $this->FormSetting->find('all',array('conditions'=>array('FormSetting.field_group'=>'contract_section','FormSetting.status'=>1,'FormSetting.form_id'=>1)));
+        $this->set('contract_section_form_fields', $contract_section_form_fields);		
+		
+		$discipline_section_form_fields = $this->FormSetting->find('all',array('conditions'=>array('FormSetting.field_group'=>'discipline_section','FormSetting.status'=>1,'FormSetting.form_id'=>1)));
+        $this->set('discipline_section_form_fields', $discipline_section_form_fields);
+		
+		$emergency_contact_form_fields = $this->FormSetting->find('all',array('conditions'=>array('FormSetting.field_group'=>'emergency_contact','FormSetting.status'=>1,'FormSetting.form_id'=>1)));
+        $this->set('emergency_contact_form_fields', $emergency_contact_form_fields);
+		
+		$upload_section_form_fields = $this->FormSetting->find('all',array('conditions'=>array('FormSetting.field_group'=>'upload_section','FormSetting.status'=>1,'FormSetting.form_id'=>1)));
+        $this->set('upload_section_form_fields', $upload_section_form_fields);
 	 }
 	 
 	 // Dashboard Function Start

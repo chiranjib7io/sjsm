@@ -30,7 +30,7 @@
 			<ul class="nav navbar-nav">
 				
             <?php
-          if(!empty($userData['user_type_id']) && ($userData['user_type_id']==2 || $userData['user_type_id']==3)){
+          if(!empty($userData['user_type_id']) && ($userData['user_type_id']==2 || $userData['user_type_id']==4 || $userData['user_type_id']==3)){
           ?>    
                 <li class="dropdown user user-menu " onclick="toggleHideColumnsHead()" id="hideColumnsHeads">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
@@ -96,7 +96,7 @@
           <!-- sidebar menu: : style can be found in sidebar.less -->
           <ul class="sidebar-menu">
           <?php
-          if(!empty($userData['user_type_id']) && ($userData['user_type_id']==2 || $userData['user_type_id']==3)){
+          if(!empty($userData['user_type_id']) && ($userData['user_type_id']==2 || $userData['user_type_id']==4 || $userData['user_type_id']==3)){
           ?>
 			<li><a href="<?php echo $this->Html->url(array($this->params['prefix'] => true,'controller' => 'Employees','action' => 'list')); ?>"><i class="fa fa-dashboard"></i> Dashboard</a></li>
           <?php
@@ -114,7 +114,7 @@
               </a>
               <ul class="treeview-menu">
           <?php
-          if(!empty($userData['user_type_id']) && ($userData['user_type_id']==2 || $userData['user_type_id']==3)){
+          if(!empty($userData['user_type_id']) && ($userData['user_type_id']==2 || $userData['user_type_id']==4 || $userData['user_type_id']==3)){
           ?>
 				<li><a href="<?php echo $this->Html->url(array($this->params['prefix'] => true,'controller' => 'employees','action' => 'list')); ?>"><i class="fa fa-list-alt"></i> Employee List</a></li>     
                 <li><a href="<?php echo $this->Html->url(array($this->params['prefix'] => true,'controller' => 'employees','action' => 'save')); ?>"><i class="fa fa-circle-o"></i> Create Employee</a></li>
@@ -146,9 +146,30 @@
            }
            ?>
            
-           <?php
+          <?php
           if(!empty($userData['user_type_id']) && ($userData['user_type_id']==2 || $userData['user_type_id']==1)){
           ?>  
+            <li class="treeview">
+              <a href="#">
+                <i class="fa fa-edit"></i>
+                <span>User Manage</span>
+                <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+           
+				<li><a href="<?php echo $this->Html->url(array($this->params['prefix'] => true,'controller' => 'users','action' => 'user_list')); ?>"><i class="fa fa-list-alt"></i> User List</a></li>
+                <li><a href="<?php echo $this->Html->url(array($this->params['prefix'] => true,'controller' => 'users','action' => 'create_user')); ?>"><i class="fa fa-circle-o"></i> Create User</a></li>
+              </ul>
+            </li> 
+             <?php
+           }
+           ?> 
+           
+           
+           <?php
+          if(!empty($userData['user_type_id']) && ($userData['user_type_id']==2 || $userData['user_type_id']==1)){
+          ?> 
+          <!-- 
             <li class="treeview">
               <a href="#">
                 <i class="fa fa-edit"></i>
@@ -162,13 +183,15 @@
                 
               </ul>
             </li> 
+            -->
              <?php
            }
            ?>
            
            <?php
           if(!empty($userData['user_type_id']) && ($userData['user_type_id']==2 || $userData['user_type_id']==1)){
-          ?>  
+          ?>
+          <!-- 
             <li class="treeview">
               <a href="#">
                 <i class="fa fa-edit"></i>
@@ -180,7 +203,8 @@
 				<li><a href="#<?php //echo $this->Html->url(array($this->params['prefix'] => true,'controller' => 'settings','action' => 'field_save')); ?>"><i class="fa fa-list-alt"></i> N/A</a></li>
                 
               </ul>
-            </li> 
+            </li>
+            --> 
              <?php
            }
            ?>

@@ -1,6 +1,7 @@
 <script src="<?php echo $this->webroot; ?>asset/plugins/multiselect/jquery.multiselect.js" type="text/javascript"></script>
 <link href="<?php echo $this->webroot; ?>asset/plugins/multiselect/jquery.multiselect.css" rel="stylesheet"/>
 
+
 <script>
    
 $(function () {
@@ -41,7 +42,7 @@ $(document).ready(function() {
     } );
  
     // DataTable
-    var table = $('#emplist').DataTable();
+    var table = $('#emplist').DataTable();// table end
  
     // Apply the search
     table.columns().every( function () {
@@ -65,6 +66,38 @@ $(document).ready(function() {
         } );
 		
     } );
+
+function selectFilterColumn ( i , val) {
+    $('#emplist').DataTable().column( i ).search( val ).draw();
+}
+
+$('.select_filter').on( 'change', function () {
+	selectFilterColumn($(this).attr('data-column') , this.value);			  
+});
+
+
+$("#emplist thead th").each( function ( i ) {
+		
+	if ($(this).text() == 'Citizen') {
+        var isStatusColumn = (($(this).text() == 'Citizen') ? true : false);
+		var select = $('<select><option value="">Citizen</option></select>')
+            .appendTo( $(this).empty() )
+            .on( 'change', function () {
+                var val = $(this).val();
+				
+                table.column( i )
+                    .search( val ? '^'+$(this).val()+'$' : val, true, false )
+                    .draw();
+            } );
+ 		
+		
+        // All other non-Status columns (like the example)
+		table.column( i ).data().unique().sort().each( function ( d, j ) {  
+			select.append( '<option value="'+d+'">'+d+'</option>' );
+        } );
+        
+	}
+} );
 	
 	
 } );
@@ -100,7 +133,24 @@ $(document).ready(function() {
 										<th>Applied on</th>
 										<th>Last Name</th>
 										<th>First Name</th>
-										<th>Status</th>
+										<th>
+                                        <select class="column_filter select_filter" data-column="4" >
+                							<option value="">Status</option>
+                							<?php
+                                            $emp_row = "";
+            								foreach($discipline_section_form_fields as $row)
+            								{
+            									if($row['FormSetting']['field_name'] == "Faulty_Status")
+            									{
+            										$emp_row = $row['FormSetting']['field_values'];
+            									}
+            								}
+                							foreach(json_decode($emp_row,true) as $k => $c){
+                							?>
+                							<option value="<?=$k?>"><?=$c?></option>
+                							<?php } ?>
+                						</select>
+                                        </th>
 										<th>Citizen</th>
 										<th>Location</th>
 										<th>Position</th>
@@ -124,7 +174,7 @@ $(document).ready(function() {
                             			<td><?php echo (@$emp_row['Employee']['date_applied']=="")?"":$emp_row['Employee']['date_applied']; ?></td>
 										<td><?php echo $this->Html->link(    $row['Employee']['last_name'],   array($this->params['prefix']=>true,'action'=>'view', $row['Employee']['id']) ); ?><?php //echo $row['Employee']['last_name']; ?></td>
 										<td><?php echo $this->Html->link(    $row['Employee']['first_name'],   array($this->params['prefix']=>true,'action'=>'view', $row['Employee']['id']) ); ?><?php //echo $row['Employee']['first_name']; ?></td>
-										<td ><?php echo ($row['Employee']['status']==1)?'Active':'Inactive'; ?></td>
+										<td ><?php echo (@$emp_row['Employee']['Faulty_Status']=="")?'':$emp_row['Employee']['Faulty_Status']; ?></td>
                             			<td><?php echo (@$emp_row['Employee']['passport_holder']=="")?"":$emp_row['Employee']['passport_holder']; ?></td>
                             			<td><?php 
 										//echo (@$emp_row['Employee']['home_street']=="")?"":$emp_row['Employee']['home_street'].", ";
@@ -155,32 +205,7 @@ $(document).ready(function() {
                             		<?php endforeach; ?>
                             		<?php unset($user); ?>
                             	</tbody>
-									<?php 
-										$emp_row = "";
-										foreach($address_form_fields as $row)
-										{
-											if($row['FormSetting']['field_name'] == "passport_holder")
-											{
-												$emp_row = $row['FormSetting']['field_values'];
-											}
-										}
-										?>
-								<tfoot>
-                            		<tr>
-                            			<th></th>
-										<th></th>
-										<th></th>
-										<th></th>
-										<th></th>
-										<th data = '<?php echo $emp_row; ?>'>Citizen</th>
-										<th></th>
-										<th></th>
-										<th></th>
-										<th></th>
-										<th></th>
-										<th></th>
-                            		</tr>
-                            	</tfoot>
+								
                             </table>
                           
                           

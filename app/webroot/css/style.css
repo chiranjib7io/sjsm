@@ -15,24 +15,23 @@
 }
 .saveinfo_cnt .content_cnt .inner_form{border:1px solid #fbd2cd; padding:20px 35px 30px 35px; margin:0 0 40px 0!important; position:relative;}
  .content_cnt .inner_form label {
-  color: #a5a5a5;
+  color: #000;
   float: left;
   font-weight: 400;
   margin-bottom: 0;
   max-width: 29%;
-  width: 100%;
-  margin:0 4px 0 0;
+   margin:0 4px 0 0;
 }
 .content_cnt .inner_form input, .content_cnt .inner_form select {
   border: 1px solid #d4d1d1;
   border-radius: 4px;
   float: left;
   height: 40px;
-  max-width: 70%;
+  width: 100%;
   padding: 8px 5px;
   width: 100%;
   margin-top:10px;
- 
+  
 }
 input[type=file]{
   height: auto!important;
@@ -64,7 +63,7 @@ input[type=file]{
   line-height: 45px;
   width: 45px;
 }
- .saveinfo_cnt input[type="checkbox"]{display:block!important;}
+
 .Discipline_section .input_box input[type="checkbox"]{display:block!important;}
  
 .Discipline_section .input_box input[type="checkbox"] {
@@ -73,7 +72,7 @@ input[type=file]{
   max-width: 10%;
   width: 100%;
 }
-.Discipline_section   select{max-width:60%!important;}
+
  
 .blank_space {
   display: block;
@@ -98,7 +97,7 @@ input[type=file]{
 	 text-align: center;
 	 border:none;
 	 }
- #step1 h6{font-size:16px; font-weight:bold;}
+ #step1 h6, #step2 h6{font-size:16px; font-weight:bold;}
  .editBtn {
 	 background-color:#c43d2c; 
 	 border-radius:4px; 
@@ -107,17 +106,32 @@ input[type=file]{
 	 font-size:16px;
 	 margin-right:15px;
  }
- .delBtn{
+ .delBtn, #submit_step2{
 	 background-color:#404040;
 	 border-radius:4px; 
 	 padding:5px 15px;
 	color:#fff;
 	font-size:16px;
+	margin-bottom:30px;
  }
  .white_content {border: 2px solid #eb5947!important;}
  #light h5 {color:#d73925;}
- 
- 
+ .close{float: right;
+margin-top: -35px;
+margin-right:20px;
+cursor: pointer;
+color: #fff;
+border: 3px solid #747474;
+border-radius: 30px;
+background-color: #fff!important;
+font-size: 38px;
+font-weight: bold;
+display: inline-block;
+line-height: 0px;
+padding: 14px 6px 17px 6px;
+opacity: 10;}
+
+
  
  
  

@@ -54,7 +54,8 @@ class APIEmployeesController extends AppController {
 
 	
 	public function employee_api_control() {		
-		$this->layout = '';
+		$this->layout = 'ajax';
+        $this->autoRender = false;
 		$result = array('error'=>'There is no action available');
 		$message = $status = $error = array();		$all_form_fields = $this->FormSetting->find('all',array('conditions'=>array('FormSetting.status'=>1,'FormSetting.form_id'=>1)));        $this->set('all_form_fields', $all_form_fields);		
 		if (isset($this->request->data['Employee']['method']) && $this->request->data['Employee']['method'] == "Save")

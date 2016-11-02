@@ -248,7 +248,8 @@
       <?php
         $arr= $field['FormSetting'];
         $data= !empty($this->request->data['Employee'][$arr['field_name']])?$this->request->data['Employee'][$arr['field_name']]:'';
-        if(!is_array($data)){
+        
+		if(!is_array($data)){
 		?>
         
         <td width="25%" style="border:none; padding-bottom:10px; "><?=$data?></td>

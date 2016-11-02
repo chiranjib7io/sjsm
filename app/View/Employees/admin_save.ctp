@@ -1,8 +1,52 @@
- 
-	<!--<script src="<?php //echo $this->webroot; ?>js/jquery.form.js"></script>-->
-	<script src="<?php echo $this->webroot; ?>js/jquery-migrate-1.2.1.min.js"></script>
-	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<!--<script src="<?php //echo $this->webroot; ?>js/jquery.form.js"></script>-->
+<script src="<?php echo $this->webroot; ?>js/jquery-migrate-1.2.1.min.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    
+   
+<script>
+var isChanged = false;
+$(document).ready(function() {
+        
+        
+        $('#EmployeeSaveForm input').on( 'input', function() {
+          //This would be called if any of the input element has got a change inside the form
+          isChanged = true;
+        }); 
+   
+        var content_area = document.getElementById("maincontainer");
+        document.body.addEventListener("click", function(e) {
+            if(isChanged==true){
+                var target = e.target || e.srcElement;
+          
+                  if (target !== content_area && !isChildOf(target, content_area)) {
+                    if(confirm("You have not save the information. Do you want to save now?"))
+                    {
+                        
+                        $( "#EmployeeSaveForm" ).submit();
+                    }else{
+                        alert("Ok. Let's go ahead..");
+                    }
+                    
+                    
+                  }
+            }
+          
+        }, false);
+        
+        function isChildOf(child, parent) {
+          if (child.parentNode === parent) {
+            return true;
+          } else if (child.parentNode === null) {
+            return false;
+          } else {
+            return isChildOf(child.parentNode, parent);
+          }
+        }
+    
+});
+
+</script>
  
 <style type="text/css" >
 
@@ -19,9 +63,9 @@
 .stxt{text-align:right; color:#c82612; font-size:17px; position: absolute;
     right: 29px; bottom: 3px;}
 
-.myfile_type_class { display:none;}
-.myfile_type_class + label { background:url(<?php echo $this->webroot; ?>IMAGES/notick.jpg) no-repeat 0 0;  height: 19px;  width: 20px;  display:inline-block;  padding: 0 0 0 0px; margin-right:15px;}
-.myfile_type_class:checked + label { background:url(<?php echo $this->webroot; ?>IMAGES/tick.jpg) no-repeat 0 0;  height: 19px;  width:20px; display:inline-block;  padding: 0 0 0 0px;}
+input[type=checkbox] { display:none;}
+input[type=checkbox] + label { background:url(<?php echo $this->webroot; ?>IMAGES/notick.jpg) no-repeat 0 0;  height: 19px;  width: 20px;  display:inline-block;  padding: 0 0 0 0px; margin-right:15px;}
+input[type=checkbox]:checked + label {  height: 19px;  width:20px; display:inline-block;  padding: 0 0 0 0px;}
 .otherTxt{width:60%; border-radius:4px; border:1px solid #ccc; height:30px; margin-bottom:20px;}
 .upBg{  padding:10px; width:50%; margin:0 auto; }
  
@@ -73,7 +117,7 @@ margin:0px !important;
 </ol>
 </section>
 
-<section class="content"><!-- content -->
+<section class="content" id="maincontainer"><!-- content -->
 <?php echo $this->Form->create('Employee',array('type' => 'file','admin'=>true,'controller'=>'employees','action'=>'save')); ?>
 <div class="outer_content"><!--outer_content-->
 	<span style="color:red"><?php echo $this->Session->flash(); ?></span>
@@ -385,7 +429,7 @@ margin:0px !important;
 			?> 
 
 			<div class="col-sm-12">
-				<table id="table_upload_data">
+				<table id="table_upload_data" style="width: 100%;" cellspacing="10" CELLPADDING=1>
 					<tr>
 						<th width="100px">Type</th>
 						<th width="100px">File Name </th>
@@ -395,7 +439,7 @@ margin:0px !important;
 					</tr>				
 					
 					<?php
-					
+				
 					if(!empty($this->request->data['Employee']['employee_upload_files'])){
 
 						
@@ -406,7 +450,7 @@ margin:0px !important;
 	$inp .= '<input type="hidden" name="data[Employee][employee_upload_files][upload_file_Path][]" value="'.@$val['upload_file_Path'].'">';		
 	$inp .= '<input type="hidden" name="data[Employee][employee_upload_files][upload_file_Name][]" value="'.@$val['upload_file_Name'].'">';		
 	$inp .= '<input type="hidden" name="data[Employee][employee_upload_files][upload_file_Date][]" value="'.@$val['upload_file_Date'].'">';		
-	$inp .= '<input type="checkbox" name="data[Employee][employee_upload_files][upload_file_Mandatory][]" '.@$val['upload_file_Mandatory'].' value="checked">';		
+	$inp .= '<input type="checkbox" name="data[Employee][employee_upload_files][upload_file_Mandatory][]" '.@$val['upload_file_Mandatory'].' value="checked" id="'.$key.'"><label for="'.$key.'"></label>';		
 	$inp .= '<input type="hidden" name="data[Employee][employee_upload_files][upload_file_Status][]" value="'.@$val['upload_file_Status'].'">';
 		
 								//$this->webroot.'upload/employee/'.$first_name.'/'.
@@ -430,9 +474,11 @@ margin:0px !important;
 					
 				</table>
 				<div class="button_box">
-				     <input type="button" onclick="openpopup();" style="width: auto !important;" value="Add file" > 
+				     <input type="button" onclick="openpopup();" class="delBtn" style="width: auto !important;" value="Add file" /> 
+					 
 					    <div id="light" class="white_content popbx"> 
 						    <div style="position:relative"><h5 id="headingID">Choose file</h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="javascript: closepopup();"><span aria-hidden="true">×</span></button>
 								<div class="content">
 								<div class="popContainerBx">
 								        <div id="images_preview"></div>
@@ -440,21 +486,19 @@ margin:0px !important;
 											<label class="lbleBx">
 											<label class="greyBg image-upload">Upload File</label>
 											<div class="greyBg">
-                <div class="image-upload">
-    <label for="file-input" class="uplodbx">
-        <img src="<?php echo $this->webroot; ?>IMAGES/uploadIcon.jpg"/> Click to Select File
-    </label>
-    <input id="file-input" name="myfile[]" type="file"/>
-             </div>
-              
-            </div>
-											 </label>
+                                                <div class="image-upload">
+                                                    <label for="file-input" class="uplodbx">
+                                                        <img src="<?php echo $this->webroot; ?>IMAGES/uploadIcon.jpg"/> Click to Select File
+                                                    </label>
+                                                    <input id="file-input" name="myfile[]" type="file"/>
+                                                </div>
+                                              
+                                            </div>
+					                       </label>
 											
+									
 											
-											
-			
-
-											<br>
+											<br/>
 											<div class="upBg"><input type="button" name="submit_file" id="submit_step1" class="stepBtn" value="Click to Go Next Step">
 											</div>
 											<p class="stxt">Step 1 of 2</p>
@@ -471,22 +515,26 @@ margin:0px !important;
 												
 												foreach($result as $key=>$val){
 												
-													echo '<label class="contentlabel">'.$val.'</label><input type="checkbox" id="myfile_type" name="myfile_type[]" value="'.$val.'" class="myfile_type_class"><br>';
+													//echo '<label class="contentlabel">'.$val.'</label><input type="checkbox" id="myfile_type" name="myfile_type[]" value="'.$val.'" class="myfile_type_class"><br>';
 													
+                                                    echo '<input name="myfile_type[]" value="'.$val.'" id="'.$val.'" class="myfile_type" name="myfile_type[]" type="checkbox">
+                                                      <label for="'.$val.'"></label>'.$val.'<br><br>';
+                                                      
 													/*echo '<input name="thing" value="'.$val.'" id="myfile_type" name="myfile_type[]" type="checkbox">
                                                       <label for="one"></label>'.$val.'<br><br>';*/
 												}
 												
 											}
 											?> 
-			
+			                                 <input type="text" id="other_myfile_type" class="otherTxt" name="other_myfile_type" style="display: none;" /> 
 											</div>
-											<label id="other_myfile_type_label" style="display: none;">&nbsp;</label><input type="text" id="other_myfile_type" name="other_myfile_type" style="display: none;"> 
+											
 											<br>
 											<label>&nbsp;</label><span id="print_file_name"></span><br>
 											
    <div class="upBg"><input type="button" name="submit_file" id="submit_step2" value="Upload Now" class="upBtn">
    </div>
+   <br class="clear">
    <p class="stxt pop2">Step 2 of 2</p>
 										</div>
 										<div id="step3" class="barContainer" style="display: none;"> 
@@ -496,7 +544,7 @@ margin:0px !important;
 										
 								</div> 
 								</div> 
-								<br>
+								<br/>
 								<!-- <a id="close_popup" href="javascript: void(0);" onclick="javascript: closepopup();" style="display: block;"><img src="<?php //echo $this->webroot; ?>IMAGES/Cancel.png"></a>  class="closebtn" -->
 						    </div>
 						</div>
@@ -511,14 +559,14 @@ margin:0px !important;
 		<div class="row"><!-- inner_form -->
 			<div class="col-sm-6 submit_box">
 				<?php if(!empty($this->request->data['Employee']['id'])){ ?>
-					<input type="submit" class="second_page" name="data[Employee][Save_Employee]" value="Update">
+					<input type="submit" class="saveBtn" name="data[Employee][Save_Employee]" value="Save">
 				<?php }else{ ?>
-					<input type="submit" class="second_page" name="data[Employee][Save_Employee]" value="Save">
+					<input type="submit" class="saveBtn" name="data[Employee][Save_Employee]" value="Save">
 				<?php } ?>
 			</div>
 			<div class="col-sm-6 submit_box">
-				<a href="javascript:;" class="firstpage_link" id="firstpage_link" />1</a>
-				<a href="javascript:;" class="secondpage_link" id="secondpage_link" />2</a>
+				<a href="javascript:;" class="firstpage_link delBtn" id="firstpage_link" >&lt;&lt;Prev </a>
+				<a href="javascript:;" class="secondpage_link delBtn" id="secondpage_link" >Next&gt;&gt; </a>
 			</div>
 			
 		</div><!-- End-inner_form -->
@@ -529,6 +577,7 @@ margin:0px !important;
 </section><!-- End-content -->
 </div>
 <style>
+#print_file_name {margin-top0!important;}
 .contentlabel{float:left;}
 #myfile_type{float:left;}
 .contentlabel {
@@ -671,9 +720,9 @@ function openpopup()
 
 $(document).ready(function(e){
 	
-	$("#myfile_type").live("click", function()
+	$(".myfile_type").live("click", function()
 	{	
-		var group = "#myfile_type[name='"+$(this).attr("name")+"']";
+		var group = ".myfile_type[name='"+$(this).attr("name")+"']";
 		$(group).attr("checked",false);
 		$(this).attr("checked",true);		
 
@@ -732,7 +781,7 @@ $(document).ready(function(e){
 
 	$("#submit_step2").live("click", function()
 	{	
-		var file_type  = $("#myfile_type:checked").val();
+		var file_type  = $(".myfile_type:checked").val();
 		if(typeof file_type === 'undefined' || file_type === null){
 			alert("File type is not checked.");
 			return false;
@@ -767,7 +816,7 @@ $(document).ready(function(e){
 	inp += '<input type="hidden" name="data[Employee][employee_upload_files][upload_file_Path][]" value="'+file_path+'">';		
 	inp += '<input type="hidden" name="data[Employee][employee_upload_files][upload_file_Name][]" value="'+file_name+'">';		
 	inp += '<input type="hidden" name="data[Employee][employee_upload_files][upload_file_Date][]" value="<?php echo date('m-d-Y'); ?>">';		
-	inp += '<input type="checkbox" name="data[Employee][employee_upload_files][upload_file_Mandatory][]" checked value="checked">';		
+	inp += '<input type="checkbox" name="data[Employee][employee_upload_files][upload_file_Mandatory][]" checked value="checked" id="'+file_type+'"><label for="'+file_type+'"></label>';		
 	inp += '<input type="hidden" name="data[Employee][employee_upload_files][upload_file_Status][]" value="Uploaded">';
 		
 			$('#step2,#step3').fadeOut();
@@ -778,7 +827,7 @@ $(document).ready(function(e){
 			closepopup();
 			
 		}, 5000);
-		$("#myfile_type:checked").prop("checked",false);	
+		$(".myfile_type:checked").prop("checked",false);	
 		$('#headingID').html("Progress");
 	});
 
@@ -851,18 +900,16 @@ $(document).ready(function(e){
 $(".firstpage_link").click(function(){
 	$(".first_page").css("display","block");
 	$(".second_page").css("display","none");
+    $(".firstpage_link").hide();
+    $(".secondpage_link").show();
 });
 
 $(".secondpage_link").click(function(){
 	$(".second_page").css("display","block");
 	$(".first_page").css("display","none");
+    $(".firstpage_link").show();
+    $(".secondpage_link").hide();
 });
 
 </script>
 
-<style>
-#print_file_name {
-    display: block;
-    margin-top: 53px;
-}
-</style>

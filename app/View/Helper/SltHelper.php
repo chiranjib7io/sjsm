@@ -195,17 +195,27 @@ class SltHelper extends AppHelper {
             
             elseif($arr['field_type']=='file'){
                 $files = '';
+                
                 if(!empty($value[$arr['field_name']])){
-                    $ext = $this->get_file_extension($value[$arr['field_name']]);
-                    if($ext=='jpg' || $ext=='jpeg' || $ext=='png' || $ext=='gif'){
-                        $files = '<img src="'.$this->webroot.'upload/employee/'.$value[$arr['field_name']].'" width="100" />';
-                    }else{
-                        $files = '<a href="'.$this->webroot.'upload/employee/'.$value[$arr['field_name']].'">'.$value[$arr['field_name']].'</a>';
+                    $filename =$value[$arr['field_name']];
+                    if(!is_array($filename)){
+                        $ext = $this->get_file_extension($filename);
+                        if($ext=='jpg' || $ext=='jpeg' || $ext=='png' || $ext=='gif'){
+                            $files = '<img src="'.$this->webroot.'upload/employee/'.$filename.'" width="100" />';
+                        }else{
+                            $files = '<a href="'.$this->webroot.'upload/employee/'.$filename.'">'.$filename.'</a>';
+                        }
                     }
+                    
                 }
+                /*
                 $field = '<div class="form-group">
                             <label for="'.$arr['field_name'].'">'.$arr['field_display_name'].'<font color="red">'.(($arr['is_required']=='required')?'*':'').'</font></label>'
                             .$files.'<br>
+                          </div>';
+                */
+                $field = '<div class="form-group">'
+                            .$files.'
                           </div>';
             }
             

@@ -83,13 +83,73 @@ class UsersController extends AppController {
 				$this->Session->setFlash(__('The user password has been change'));
 				$this->redirect(array('action' => 'change_password'));
 			} else {
-				$this->Session->setFlash(__('The user password uable to change. Please, try again.'));
+				$this->Session->setFlash(__('The user password unable to change. Please, try again.'));
 			}	
 			
 		}
 	}
 	// Change Password function END
     
+    public function admin_create_user(){
+        if($this->Session->check('Auth.User')){
+		  if($this->Auth->user('user_type_id')==3 || $this->Auth->user('user_type_id')==4)	
+            $this->redirect(array('admin'=>true,'controller'=>'Employees','action'=>'list'));	
+		}
+		$this->layout = 'panel_layout';
+        $this->set('title', 'Create User');
+		if ($this->request->is('post')) {
+			;
+			$this->request->data['User']['user_type_id']=4;
+            $this->request->data['User']['role']='subadmin';
+            $this->request->data['User']['username']= strtolower($this->request->data['User']['first_name']);
+            $this->request->data['User']['created']=date("Y-m-d H:i:s");
+            $this->request->data['User']['modified']=date("Y-m-d H:i:s");
+			
+			if ($this->User->save($this->request->data)) {
+				$this->Session->setFlash(__('The user has been created'));
+				$this->redirect(array('admin'=>true,'action' => 'create_user'));
+			} else {
+				$this->Session->setFlash(__('The user unable to create. Please, try again.'));
+			}	
+			
+		}
+    }
+    
+    public function admin_update_user($uid=''){
+        if($this->Session->check('Auth.User')){
+		  if($this->Auth->user('user_type_id')==3 || $this->Auth->user('user_type_id')==4)	
+            $this->redirect(array('admin'=>true,'controller'=>'Employees','action'=>'list'));	
+		}
+		$this->layout = 'panel_layout';
+        $this->set('title', 'Create User');
+        $user_data = $this->User->findById($uid);
+        $this->set('user_data', $user_data);
+		if ($this->request->is('post')) {
+			$data['User']['id']=$this->request->data['User']['id'];
+            $data['User']['password']=$this->request->data['User']['password'];
+            $data['User']['modified']=date("Y-m-d H:i:s");
+			
+			if ($this->User->save($data)) {
+				$this->Session->setFlash(__('The user has been updated'));
+				$this->redirect(array('admin'=>true,'action' => 'user_list'));
+			} else {
+				$this->Session->setFlash(__('The user unable to update. Please, try again.'));
+			}	
+			
+		}
+    }
+    
+    public function admin_user_list(){
+        if($this->Session->check('Auth.User')){
+		  if($this->Auth->user('user_type_id')==3 || $this->Auth->user('user_type_id')==4)	
+            $this->redirect(array('admin'=>true,'controller'=>'Employees','action'=>'list'));	
+		}
+		$this->layout = 'panel_layout';
+        $this->set('title', 'User List');
+		
+        $user_data = $this->User->find('all',array('conditions'=>array('User.user_type_id'=>4,'User.status'=>1)));
+        $this->set('user_data',$user_data);
+    }
     
 
 /* ************************************************************************************************************************************/
@@ -97,7 +157,7 @@ class UsersController extends AppController {
 /* ************************************************************************************************************************************/
     public function index(){
         if($this->Session->check('Auth.User')){
-		  if($this->Auth->user('user_type_id')==2){	
+		  if($this->Auth->user('user_type_id')==2 || $this->Auth->user('user_type_id')==4){	
 
             //$this->redirect(array('admin' => true , 'action' => 'index'));
             $this->redirect(array('admin'=>true,'controller'=>'Employees','action'=>'list'));	
@@ -113,7 +173,7 @@ class UsersController extends AppController {
 	public function login() {
 		//if already logged-in, redirect
 		if($this->Session->check('Auth.User')){
-		  if($this->Auth->user('user_type_id')==2){	
+		  if($this->Auth->user('user_type_id')==2 || $this->Auth->user('user_type_id')==4){	
             //$this->redirect(array('admin' => true , 'action' => 'index'));
             $this->redirect(array('admin'=>true,'controller'=>'Employees','action'=>'list'));	
           }
@@ -178,7 +238,7 @@ class UsersController extends AppController {
 				// Email Send
 				$this->Email->from = 'no-reply@microfinanceapp.com';
 				$this->Email->to = $dbEmail;
-				$this->set('heading', 'You Login Password');
+				$this->set('heading', 'Your Login Password');
 				$this->set('content', "Your Updated Password is: 123456");
 				$this->Email->subject = 'Forgot Password';
 				$this->Email->layout = 'report_msg';
@@ -205,6 +265,9 @@ class UsersController extends AppController {
 		} 
 	}
 	//User forgot password function end
+       
+    
+    
 /* ************************************************************************************************************************************/
 /* **************************************** Data entry Section start ***********************************************************************/
 /* ************************************************************************************************************************************/
@@ -212,7 +275,7 @@ class UsersController extends AppController {
     // Dashboard Function Start
     public function deo_index() {
         if($this->Session->check('Auth.User')){
-		  if($this->Auth->user('user_type_id')==2)	
+		  if($this->Auth->user('user_type_id')==2 || $this->Auth->user('user_type_id')==4)	
             $this->redirect(array('admin' => true , 'action' => 'index'));	
 		}  
 		$this->layout = 'panel_layout';
@@ -228,7 +291,7 @@ class UsersController extends AppController {
     // Change Password function START
 	public function deo_change_password(){
         if($this->Session->check('Auth.User')){
-		  if($this->Auth->user('user_type_id')==2)	
+		  if($this->Auth->user('user_type_id')==2 || $this->Auth->user('user_type_id')==4)	
             $this->redirect(array('admin' => true , 'action' => 'change_password'));	
 		}
 		$this->layout = 'panel_layout';

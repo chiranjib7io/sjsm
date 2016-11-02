@@ -98,7 +98,7 @@ function generate_values(val){
                           ?>
                     <div id="selectvalues" style="display: <?=empty($str)?'none':''?>;">
                         <div class="form-group">
-                          <label for="City ">Values (Comma(,) Seperated)</label>
+                          <label for="City ">Values [Comma(,) Separated.***No Space after comma(,)]</label>
                           
                           <?php echo $this->Form->input('FormSetting.values', array('type' => 'textarea','class'=>'form-control','value'=>!empty($str)?$str:'','placeholder'=>'Enter Field Values','label'=>false)); ?>
                          
