@@ -367,7 +367,7 @@ $main[] = array(
 				if(count($emp_data) > 0){				
 					//$emp_record = $emp_data['Employee'][$val];						
 					$this->Session->setFlash('Employee first name already exist.');
-					$this->redirect(array('admin'=>true,'action'=>'list'));
+					//$this->redirect(array('admin'=>true,'action'=>'list'));
 				}
 				
 				$val = $save_data['Employee']['last_name'];
@@ -376,7 +376,7 @@ $main[] = array(
 				if(count($emp_data) > 0){				
 					//$emp_record = $emp_data['Employee'][$val];
 					$this->Session->setFlash('Employee last name already exist.');
-					$this->redirect(array('admin'=>true,'action'=>'list'));
+					//$this->redirect(array('admin'=>true,'action'=>'list'));
 				}
 				
 				$save_data['Employee']['created_on'] = date("Y-m-d H:i:s");
@@ -384,7 +384,7 @@ $main[] = array(
 					$subscribe['Subscriber']['modified_on'] = date("Y-m-d H:i:s");
 					$this->Subscriber->save($subscribe);
 					$this->Session->setFlash('Employee saved successfully.');
-					$this->redirect(array('admin'=>true,'action'=>'list'));
+					//$this->redirect(array('admin'=>true,'action'=>'list'));
 				}
 				
 			}else{
@@ -392,7 +392,7 @@ $main[] = array(
 				$this->Employee->id = $pid;
 				if (!$this->Employee->exists()) {
 					$this->Session->setFlash('Invalid Employee provided');
-					$this->redirect(array('admin'=>true,'action'=>'list'));
+					//$this->redirect(array('admin'=>true,'action'=>'list'));
 				}				
 				
 				$this->Employee->saveField('first_name', $save_data['Employee']['first_name']);
@@ -401,7 +401,7 @@ $main[] = array(
 				$this->Employee->saveField('modified_on', date("Y-m-d H:i:s"));
 				
 				$this->Session->setFlash(__('Employee updated'));
-				$this->redirect(array('admin'=>true,'action' => 'list'));
+				//$this->redirect(array('admin'=>true,'action' => 'list'));
 				
 			}
 			
