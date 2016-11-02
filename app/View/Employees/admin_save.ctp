@@ -305,120 +305,11 @@ margin:0px !important;
 			</div>
 	</div><!-- End-content_cnt -->
 	
+	
 	<div class="content_cnt first_page"><!-- content_cnt -->
-	<h2>Resume Or CV Section :-</h2>
-		<div class="row inner_form"><!-- inner_form -->
-		<h1 class="list_no"><span>7</span></h1>
-			<?php
-				$model_name = 'Employee.';
-				foreach($attachment_form_fields as $field){
-				?>
-					<div class="col-sm-12">
-						
-						<div class="input_box">
-					<?php
-					if(!empty($this->request->data['Employee'])){
-						print_r($this->Slt->generate_form_field($field['FormSetting'],$model_name,$this->request->data['Employee']));  
-					}else{
-						echo $this->Slt->generate_form_field($field['FormSetting'],$model_name);  
-					}
-					?>
-						</div>
-						
-					</div>
-					<?php
-						 
-				}
-			?>
-			</div>
-	</div><!-- End-content_cnt -->
-	
-	<div class="content_cnt second_page"><!-- content_cnt -->
-	<h2>Contract Section :-</h2>
-		<div class="row inner_form"><!-- inner_form -->
-		<h1 class="list_no"><span>8</span></h1>
-			<?php
-				$model_name = 'Employee.';
-				foreach($contract_section_form_fields as $field){
-				?>
-					<div class="col-sm-6">
-						
-						<div class="input_box">
-					<?php
-					if(!empty($this->request->data['Employee'])){
-						echo $this->Slt->generate_form_field($field['FormSetting'],$model_name,$this->request->data['Employee']);  
-					}else{
-						echo $this->Slt->generate_form_field($field['FormSetting'],$model_name);  
-					}
-					?>
-						</div>
-						
-					</div>
-					<?php
-						 
-				}
-			?>
-			</div>
-	</div><!-- End-content_cnt -->
-	
-		<div class="content_cnt second_page"><!-- content_cnt -->
-		<h2>Discipline Section :-</h2>
-		<div class="row inner_form Discipline_section"><!-- Discipline_section -->
-		<h1 class="list_no"><span>9</span></h1>
-			<?php
-				$model_name = 'Employee.';
-				foreach($discipline_section_form_fields as $field){
-				?>
-					<div class="col-sm-6">
-						
-						<div class="input_box">
-					<?php
-					if(!empty($this->request->data['Employee'])){
-						echo $this->Slt->generate_form_field($field['FormSetting'],$model_name,$this->request->data['Employee']);  
-					}else{
-						echo $this->Slt->generate_form_field($field['FormSetting'],$model_name);  
-					}
-					?>
-						</div>
-						
-					</div>
-					<?php
-						 
-				}
-			?>
-		</div><!-- End-Discipline_section -->
-	</div><!-- End-content_cnt -->
-	<div class="content_cnt second_page"><!-- content_cnt -->
-	<h2>Emergency Contact :-</h2>
-		<div class="row inner_form"><!-- inner_form -->
-		<h1 class="list_no"><span>10</span></h1>
-		<?php
-				$model_name = 'Employee.';
-				foreach($emergency_contact_form_fields as $field){
-				?>
-					<div class="col-sm-6">
-						
-						<div class="input_box">
-					<?php
-					if(!empty($this->request->data['Employee'])){
-						echo $this->Slt->generate_form_field($field['FormSetting'],$model_name,$this->request->data['Employee']);  
-					}else{
-						echo $this->Slt->generate_form_field($field['FormSetting'],$model_name);  
-					}
-					?>
-						</div>
-						
-					</div>
-					<?php
-						 
-				}
-			?>
-		</div><!-- End-inner_form -->
-	</div><!-- End-content_cnt -->
-	<div class="content_cnt second_page"><!-- content_cnt -->
 	<h2>Upload Section :-</h2>
 		<div class="row inner_form"><!-- inner_form -->
-		<h1 class="list_no"><span>11</span></h1>
+		<h1 class="list_no"><span>7</span></h1>
 				<?php
 				//$model_name = 'Employee.';
 				//foreach($upload_section_form_fields as $field){
@@ -568,6 +459,119 @@ margin:0px !important;
 			
 		</div><!-- End-inner_form -->
 	</div><!-- End-content_cnt -->
+	
+	<!-- <div class="content_cnt first_page"> content_cnt -->
+	<!-- <h2>Resume Or CV Section :-</h2>
+		<div class="row inner_form"> inner_form -->
+		<!-- <h1 class="list_no"><span>7</span></h1>
+			<?php
+				//$model_name = 'Employee.';
+				//foreach($attachment_form_fields as $field){
+				?>
+					<div class="col-sm-12">
+						
+						<div class="input_box">
+					<?php
+					/* if(!empty($this->request->data['Employee'])){
+						print_r($this->Slt->generate_form_field($field['FormSetting'],$model_name,$this->request->data['Employee']));  
+					}else{
+						echo $this->Slt->generate_form_field($field['FormSetting'],$model_name);  
+					} */
+					?>
+						</div>
+						
+					</div>
+					<?php
+						 
+				//}
+			?>
+			</div>
+	</div> -->
+	<!-- End-content_cnt -->
+	
+	<div class="content_cnt second_page"><!-- content_cnt -->
+	<h2>Contract Section :-</h2>
+		<div class="row inner_form"><!-- inner_form -->
+		<h1 class="list_no"><span>8</span></h1>
+			<?php
+				$model_name = 'Employee.';
+				foreach($contract_section_form_fields as $field){
+				?>
+					<div class="col-sm-6">
+						
+						<div class="input_box">
+					<?php
+					if(!empty($this->request->data['Employee'])){
+						echo $this->Slt->generate_form_field($field['FormSetting'],$model_name,$this->request->data['Employee']);  
+					}else{
+						echo $this->Slt->generate_form_field($field['FormSetting'],$model_name);  
+					}
+					?>
+						</div>
+						
+					</div>
+					<?php
+						 
+				}
+			?>
+			</div>
+	</div><!-- End-content_cnt -->
+	
+		<div class="content_cnt second_page"><!-- content_cnt -->
+		<h2>Discipline Section :-</h2>
+		<div class="row inner_form Discipline_section"><!-- Discipline_section -->
+		<h1 class="list_no"><span>9</span></h1>
+			<?php
+				$model_name = 'Employee.';
+				foreach($discipline_section_form_fields as $field){
+				?>
+					<div class="col-sm-6">
+						
+						<div class="input_box">
+					<?php
+					if(!empty($this->request->data['Employee'])){
+						echo $this->Slt->generate_form_field($field['FormSetting'],$model_name,$this->request->data['Employee']);  
+					}else{
+						echo $this->Slt->generate_form_field($field['FormSetting'],$model_name);  
+					}
+					?>
+						</div>
+						
+					</div>
+					<?php
+						 
+				}
+			?>
+		</div><!-- End-Discipline_section -->
+	</div><!-- End-content_cnt -->
+	<div class="content_cnt second_page"><!-- content_cnt -->
+	<h2>Emergency Contact :-</h2>
+		<div class="row inner_form"><!-- inner_form -->
+		<h1 class="list_no"><span>10</span></h1>
+		<?php
+				$model_name = 'Employee.';
+				foreach($emergency_contact_form_fields as $field){
+				?>
+					<div class="col-sm-6">
+						
+						<div class="input_box">
+					<?php
+					if(!empty($this->request->data['Employee'])){
+						echo $this->Slt->generate_form_field($field['FormSetting'],$model_name,$this->request->data['Employee']);  
+					}else{
+						echo $this->Slt->generate_form_field($field['FormSetting'],$model_name);  
+					}
+					?>
+						</div>
+						
+					</div>
+					<?php
+						 
+				}
+			?>
+		</div><!-- End-inner_form -->
+	</div><!-- End-content_cnt -->
+	
 	
 	<div class="content_cnt"><!-- content_cnt -->
 		<div class="row"><!-- inner_form -->

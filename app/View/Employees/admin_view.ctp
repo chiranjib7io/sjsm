@@ -147,7 +147,7 @@
 					<div class="col-sm-6">
 						
 						<div class="input_box">
-					<?php
+					<?php 
 					if(!empty($this->request->data['Employee'])){
 						echo $this->Slt->generate_form_field_view($field['FormSetting'],$model_name,$this->request->data['Employee']);  
 					}else{
@@ -192,33 +192,113 @@
 			</div>
 	</div><!-- End-content_cnt -->
 	
-	<div class="content_cnt first_page"><!-- content_cnt -->
-	<h2>Resume Or CV Section :-</h2>
+	<div class="content_cnt second_page"><!-- content_cnt -->
+	<h2>Upload Section :-</h2>
 		<div class="row inner_form inners"><!-- inner_form -->
 		<h1 class="list_no"><span>7</span></h1>
-			<?php
-				$model_name = 'Employee.';
-				foreach($attachment_form_fields as $field){
-				?>
+				<?php
+				//$model_name = 'Employee.';
+				//foreach($upload_section_form_fields as $field){
+					
+					
+				/* ?>
 					<div class="col-sm-12">
 						
 						<div class="input_box">
 					<?php
 					if(!empty($this->request->data['Employee'])){
-						print_r($this->Slt->generate_form_field_view($field['FormSetting'],$model_name,$this->request->data['Employee']));  
+						echo $this->Slt->generate_form_field_view($field['FormSetting'],$model_name,$this->request->data['Employee']);  
 					}else{
 						echo $this->Slt->generate_form_field_view($field['FormSetting'],$model_name);  
 					}
 					?>
 						</div>
-						
 					</div>
-					<?php
+					<?php */
 						 
-				}
-			?>
+				//}
+			?> 
+
+			<div class="col-sm-12">
+				<table id="table_upload_data" style="width: 100%;" cellspacing="10" CELLPADDING=1>
+					<tr>
+						<th width="100px">Type</th>
+						<th width="100px">File Name </th>
+						<th width="100px">Upload Date</th>
+						<th width="100px">Mandatory</th>
+						<th width="100px">Status</th>
+					</tr>				
+					
+					<?php
+					
+					if(!empty($this->request->data['Employee']['employee_upload_files'])){
+
+						
+						foreach($this->request->data['Employee']['employee_upload_files'] as $key=>$val){
+          
+/*							
+	$inp = '';
+	$inp .= '<input type="hidden" name="data[Employee][employee_upload_files][upload_file_Type][]" value="'.@$val['upload_file_Type'].'">';		
+	$inp .= '<input type="hidden" name="data[Employee][employee_upload_files][upload_file_Path][]" value="'.@$val['upload_file_Path'].'">';		
+	$inp .= '<input type="hidden" name="data[Employee][employee_upload_files][upload_file_Name][]" value="'.@$val['upload_file_Name'].'">';		
+	$inp .= '<input type="hidden" name="data[Employee][employee_upload_files][upload_file_Date][]" value="'.@$val['upload_file_Date'].'">';		
+	$inp .= '<input type="checkbox" name="data[Employee][employee_upload_files][upload_file_Mandatory][]" '.@$val['upload_file_Mandatory'].' value="checked">';		
+	$inp .= '<input type="hidden" name="data[Employee][employee_upload_files][upload_file_Status][]" value="'.@$val['upload_file_Status'].'">';
+*/		
+								//$this->webroot.'upload/employee/'.$first_name.'/'.
+								//$first_name = $this->request->data['Employee']['first_name'];
+                                $inp = (@$val['upload_file_Mandatory']=='checked')?"Yes":"No";
+                                $upload_file_Name = explode("\\",@$val['upload_file_Name']);
+								$dataPrint = '<tr>
+									<td>'.@$val['upload_file_Type'].'</td>
+									<td>
+										<a target="_blank" href="'.@$val['upload_file_Path'].'">
+											'.end($upload_file_Name).'
+										</a>
+									</td>
+									<td>'.@$val['upload_file_Date'].'</td>
+									<td>'.$inp.'</td>
+									<td>'.@$val['upload_file_Status'].'</td>
+								</tr>';	
+								echo $dataPrint;
+						}
+					}
+					
+					?>					
+					
+				</table>
+                
+				
 			</div>
+			
+		</div><!-- End-inner_form -->
 	</div><!-- End-content_cnt -->
+	
+	<!-- <div class="content_cnt first_page">content_cnt -->
+	<!-- <h2>Resume Or CV Section :-</h2>
+		<div class="row inner_form inners">inner_form -->
+		<!--<h1 class="list_no"><span>7</span></h1>
+			<?php
+				//$model_name = 'Employee.';
+				//foreach($attachment_form_fields as $field){
+				?>
+					<div class="col-sm-12">
+						
+						<div class="input_box">
+					<?php
+					/* if(!empty($this->request->data['Employee'])){
+						print_r($this->Slt->generate_form_field_view($field['FormSetting'],$model_name,$this->request->data['Employee']));  
+					}else{
+						echo $this->Slt->generate_form_field_view($field['FormSetting'],$model_name);  
+					} */
+					?>
+						</div> 
+					</div>
+					<?php 
+				//}
+			?>
+			</div> -->
+	<!-- </div> End-content_cnt -->
 	
 	<div class="content_cnt second_page"><!-- content_cnt -->
 	<h2>Contract Section :-</h2>
@@ -302,87 +382,7 @@
 			?>
 		</div><!-- End-inner_form -->
 	</div><!-- End-content_cnt -->
-	<div class="content_cnt second_page"><!-- content_cnt -->
-	<h2>Upload Section :-</h2>
-		<div class="row inner_form inners"><!-- inner_form -->
-		<h1 class="list_no"><span>11</span></h1>
-				<?php
-				//$model_name = 'Employee.';
-				//foreach($upload_section_form_fields as $field){
-					
-					
-				/* ?>
-					<div class="col-sm-12">
-						
-						<div class="input_box">
-					<?php
-					if(!empty($this->request->data['Employee'])){
-						echo $this->Slt->generate_form_field_view($field['FormSetting'],$model_name,$this->request->data['Employee']);  
-					}else{
-						echo $this->Slt->generate_form_field_view($field['FormSetting'],$model_name);  
-					}
-					?>
-						</div>
-					</div>
-					<?php */
-						 
-				//}
-			?> 
-
-			<div class="col-sm-12">
-				<table id="table_upload_data" style="width: 100%;" cellspacing="10" CELLPADDING=1>
-					<tr>
-						<th width="100px">Type</th>
-						<th width="100px">File Name </th>
-						<th width="100px">Upload Date</th>
-						<th width="100px">Mandatory</th>
-						<th width="100px">Status</th>
-					</tr>				
-					
-					<?php
-					
-					if(!empty($this->request->data['Employee']['employee_upload_files'])){
-
-						
-						foreach($this->request->data['Employee']['employee_upload_files'] as $key=>$val){
-          
-/*							
-	$inp = '';
-	$inp .= '<input type="hidden" name="data[Employee][employee_upload_files][upload_file_Type][]" value="'.@$val['upload_file_Type'].'">';		
-	$inp .= '<input type="hidden" name="data[Employee][employee_upload_files][upload_file_Path][]" value="'.@$val['upload_file_Path'].'">';		
-	$inp .= '<input type="hidden" name="data[Employee][employee_upload_files][upload_file_Name][]" value="'.@$val['upload_file_Name'].'">';		
-	$inp .= '<input type="hidden" name="data[Employee][employee_upload_files][upload_file_Date][]" value="'.@$val['upload_file_Date'].'">';		
-	$inp .= '<input type="checkbox" name="data[Employee][employee_upload_files][upload_file_Mandatory][]" '.@$val['upload_file_Mandatory'].' value="checked">';		
-	$inp .= '<input type="hidden" name="data[Employee][employee_upload_files][upload_file_Status][]" value="'.@$val['upload_file_Status'].'">';
-*/		
-								//$this->webroot.'upload/employee/'.$first_name.'/'.
-								//$first_name = $this->request->data['Employee']['first_name'];
-                                $inp = (@$val['upload_file_Mandatory']=='checked')?"Yes":"No";
-                                $upload_file_Name = explode("\\",@$val['upload_file_Name']);
-								$dataPrint = '<tr>
-									<td>'.@$val['upload_file_Type'].'</td>
-									<td>
-										<a target="_blank" href="'.@$val['upload_file_Path'].'">
-											'.end($upload_file_Name).'
-										</a>
-									</td>
-									<td>'.@$val['upload_file_Date'].'</td>
-									<td>'.$inp.'</td>
-									<td>'.@$val['upload_file_Status'].'</td>
-								</tr>';	
-								echo $dataPrint;
-						}
-					}
-					
-					?>					
-					
-				</table>
-                
-				
-			</div>
-			
-		</div><!-- End-inner_form -->
-	</div><!-- End-content_cnt -->
+	
 	
 	
 			

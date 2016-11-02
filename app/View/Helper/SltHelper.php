@@ -177,12 +177,20 @@ class SltHelper extends AppHelper {
                           </div>';
             }
             elseif($arr['field_type']=='multiselect'){
-                $data= !empty($value[$arr['field_name']])?$value[$arr['field_name']]:'';
-                $field = '<div class="form-group">
+                $data = !empty($value[$arr['field_name']])?$value[$arr['field_name']]:'';
+				if(isset($data) and !empty($data))
+				{  
+					 $field = '<div class="form-group">
                             <label for="'.$arr['field_name'].'">'.$arr['field_display_name'].'<font color="red">'.(($arr['is_required']=='required')?'*':'').'</font></label>
                             '.implode(',',$data).'
                           </div>';
-                
+				}
+				else
+				{
+					$field = '<div class="form-group">
+                            <label for="'.$arr['field_name'].'">'.$arr['field_display_name'].'<font color="red">'.(($arr['is_required']=='required')?'*':'').'</font></label> 
+                          </div>';
+				}  
             }						
 			elseif($arr['field_type']=='datepicker')
 			{                
