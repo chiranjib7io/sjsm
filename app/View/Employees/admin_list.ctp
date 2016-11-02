@@ -129,7 +129,7 @@ $("#emplist thead th").each( function ( i ) {
                             <table id="emplist">
                                 <thead>
                             		<tr>
-                            			<th>#</th>
+                            			<!--<th>#</th>-->
 										<th>Applied on</th>
 										<th>Last Name</th>
 										<th>First Name</th>
@@ -169,7 +169,7 @@ $("#emplist thead th").each( function ( i ) {
                                     <?php
                                     $emp_row = json_decode($row['Employee']['form_values'],true);
                                     ?>
-                            			<td><?php echo $count; ?></td>
+                            		<!--<td><?php echo $count; ?></td>-->
 										
                             			<td><?php echo (@$emp_row['Employee']['date_applied']=="")?"":$emp_row['Employee']['date_applied']; ?></td>
 										<td><?php echo $this->Html->link(    $row['Employee']['last_name'],   array($this->params['prefix']=>true,'action'=>'view', $row['Employee']['id']) ); ?><?php //echo $row['Employee']['last_name']; ?></td>
