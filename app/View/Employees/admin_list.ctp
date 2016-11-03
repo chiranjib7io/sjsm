@@ -1,5 +1,9 @@
+  
 <script src="<?php echo $this->webroot; ?>asset/plugins/multiselect/jquery.multiselect.js" type="text/javascript"></script>
 <link href="<?php echo $this->webroot; ?>asset/plugins/multiselect/jquery.multiselect.css" rel="stylesheet"/>
+
+
+
 
 
 <script>
@@ -76,6 +80,42 @@ $('.select_filter').on( 'change', function () {
 	selectFilterColumn($(this).attr('data-column') , this.value);			  
 });
 
+// Date Filter Start
+$.fn.dataTable.ext.search.push(
+  function( settings, data, dataIndex ) {
+	  var min = parseDateValue( $('#date_start').val() );
+	  var max = parseDateValue( $('#date_end').val() );
+	  //alert(min);
+      var evalDate= parseDateValue(data[0]);
+	  	
+        if (min=="undefinedundefined" && max =="undefinedundefined") {
+    		return true;
+    	}
+    	else if (evalDate >= min && evalDate <= max) {
+    		return true;
+    	}
+    	else {
+    		return false;
+    	}
+	  
+	  return true;
+  }
+);
+
+// Function for converting a mm/dd/yyyy date value into a numeric string for comparison (example 08/12/2010 becomes 20100812
+function parseDateValue(rawDate) {
+	var dateArray= rawDate.split("/");
+	var parsedDate= dateArray[2] + dateArray[0] + dateArray[1];
+	return parsedDate;
+}
+
+    $("#date_start").keyup ( function() { table.draw(); } );
+	$("#date_start").change( function() { table.draw(); } );
+	$("#date_end").keyup ( function() { table.draw(); } );
+	$("#date_end").change( function() { table.draw(); } );
+
+
+//Date Filter End
 
 $("#emplist thead th").each( function ( i ) {
 	
@@ -241,7 +281,21 @@ $("#emplist thead th").each( function ( i ) {
                       <!-- TABLE: LATEST ORDERS -->
                       <div class="box no-border">
                         <div class="box-header no-border">
-                          
+                            <div class="input-daterange" style="float: right;">
+                                <label>Applied Date Range</label>
+								<input type="text" class="input-small" id="date_start" data-column="2">
+								<span class="add-on" style="vertical-align: top;height:20px">to</span>
+								<input type="text" class="input-small" id="date_end" data-column="2">
+							</div>
+							<script type="text/javascript">
+								// When the document is ready
+								$(document).ready(function () {											
+									$('.input-daterange').datepicker({
+										todayBtn: "linked"
+									});										
+								});
+								
+							</script>
                           
                             <table id="emplist">
                                 <thead>
