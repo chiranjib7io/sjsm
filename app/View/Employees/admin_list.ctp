@@ -49,28 +49,7 @@ $(document).ready(function() {
     // DataTable
     var table = $('#emplist').DataTable();// table end
  
-    // Apply the search
-    table.columns().every( function () {
-        var that = this;
- 
-		$( 'select', this.footer() ).on( 'change', function () {
-			var selected=$(this).val();
-			 var str = "";
-			 $(selected).each(function(index,value) {
-					if(str == "")
-					{
-						str += value;
-					}
-					else
-					{
-						str += "|"+value;
-					}
-				});
-				console.log(str);
-                that.search( str, true, false ).draw();
-        } );
-		
-    } );
+    
 
 function selectFilterColumn ( i , val) {
     $('#emplist').DataTable().column( i ).search( val ).draw();
@@ -83,22 +62,38 @@ $('.select_filter').on( 'change', function () {
 // Date Filter Start
 $.fn.dataTable.ext.search.push(
   function( settings, data, dataIndex ) {
-	  var min = parseDateValue( $('#date_start').val() );
-	  var max = parseDateValue( $('#date_end').val() );
-	  //alert(min);
       var evalDate= parseDateValue(data[0]);
-	  	
-        if (min=="undefinedundefined" && max =="undefinedundefined") {
-    		return true;
-    	}
-    	else if (evalDate >= min && evalDate <= max) {
+	  
+    //Quick Filter Code Start
+    var dayback = parseInt($('#quick_filter').val());
+    
+    if(dayback){
+        var today = getPreviousDate(0);
+        var fromday = getPreviousDate(dayback);
+        
+        if (evalDate >= fromday && evalDate <= today) {
     		return true;
     	}
     	else {
     		return false;
     	}
-	  
-	  return true;
+    }
+	//Quick Filter Code End 
+    
+    // Date Range Filter start 	
+    var min = parseDateValue( $('#date_start').val() );
+    var max = parseDateValue( $('#date_end').val() );
+    if (min!=="undefinedundefined" || max !=="undefinedundefined") {
+    	if (evalDate >= min && evalDate <= max) {
+    		return true;
+    	}
+    	else {
+    		return false;
+    	}
+    }
+    // Date Range Filter end
+     
+    return true;
   }
 );
 
@@ -108,12 +103,20 @@ function parseDateValue(rawDate) {
 	var parsedDate= dateArray[2] + dateArray[0] + dateArray[1];
 	return parsedDate;
 }
+function getPreviousDate(days){
+    var t = new Date();
+    t.setDate(t.getDate() - days);
+    var rawDate = t.toISOString().split('T')[0];
+    var dateArray= rawDate.split("-");
+	var parsedDate= dateArray[0] + dateArray[1] + dateArray[2];
+	return parsedDate;
+}
 
     $("#date_start").keyup ( function() { table.draw(); } );
 	$("#date_start").change( function() { table.draw(); } );
 	$("#date_end").keyup ( function() { table.draw(); } );
 	$("#date_end").change( function() { table.draw(); } );
-
+    $("#quick_filter").change( function() { table.draw(); } );
 
 //Date Filter End
 
@@ -282,20 +285,32 @@ $("#emplist thead th").each( function ( i ) {
                       <div class="box no-border">
                         <div class="box-header no-border">
                             <div class="input-daterange" style="float: right;">
-                                <label>Applied Date Range</label>
-								<input type="text" class="input-small" id="date_start" data-column="2">
+                                <label>Applied Date</label>
+								<input type="text" class="input-small" id="date_start" data-column="0">
 								<span class="add-on" style="vertical-align: top;height:20px">to</span>
-								<input type="text" class="input-small" id="date_end" data-column="2">
+								<input type="text" class="input-small" id="date_end" data-column="0">
 							</div>
 							<script type="text/javascript">
 								// When the document is ready
-								$(document).ready(function () {											
+								$(document).ready(function () {
+								    
 									$('.input-daterange').datepicker({
-										todayBtn: "linked"
+										todayBtn: "linked",
+                                        endDate: '+0d',
+                                        autoclose: true,
 									});										
 								});
 								
 							</script>
+                            <div id="dayrange" style="float: right;">
+                                <label>Quick Filter</label>
+								<select id="quick_filter" class="input-small" data-column="0">
+                                <option value="0">All</option>
+                                <option value="7">Last 7 days</option>
+                                <option value="14">Last 14 days</option>
+                                <option value="30">Last 30 days</option>
+                                </select>
+							</div>
                           
                             <table id="emplist">
                                 <thead>
