@@ -125,6 +125,85 @@
   </tbody>
 </table>
 
+
+<table width="960px" border="1" cellspacing="0" cellpadding="0" style="margin:0 auto; border:none; font-family:Gotham, 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size:17px;">
+<h2 style="margin:40px 0 20px 0; font-family:Cambria, 'Hoefler Text', 'Liberation Serif', Times, 'Times New Roman', serif; font-size:20px;">Permanent ADDRESS :-</h2>
+  <tbody>
+  <?php
+	$model_name = 'Employee.';
+    $i=1;
+    $flg=0;
+	foreach($permanent_address_form_fields as $field){
+	   $flg=0;
+       if($i==1) echo '<tr>';
+	?>
+      
+      <?php
+        $arr= $field['FormSetting'];
+        $data= !empty($this->request->data['Employee'][$arr['field_name']])?$this->request->data['Employee'][$arr['field_name']]:'';
+        
+		?>
+        <td width="30%" style="border:none; padding-bottom:10px;"><?php echo $arr['field_display_name']; ?><font color="red"><?php (($arr['is_required']=='required')?'*':'') ?></font></td>
+        <td width="20%" style="border:none; padding-bottom:10px; "><?=$data?></td>
+      <?php
+      if($i==1){
+      ?>
+      <td width="10%" style="border:none; padding-bottom:10px;">&nbsp;</td>
+      <?php
+      }
+      ?>
+    
+    <?php
+        
+        if($i==2){ echo '</tr>'; $flg=1; $i=1;} 
+        if($flg==0) $i++;
+    }
+    if($flg==0){ echo '</tr>'; } 
+    ?>
+    
+  </tbody>
+</table>
+
+
+<table width="960px" border="1" cellspacing="0" cellpadding="0" style="margin:0 auto; border:none; font-family:Gotham, 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size:17px;">
+<h2 style="margin:40px 0 20px 0; font-family:Cambria, 'Hoefler Text', 'Liberation Serif', Times, 'Times New Roman', serif; font-size:20px;">Campus ADDRESS :-</h2>
+  <tbody>
+  <?php
+	$model_name = 'Employee.';
+    $i=1;
+    $flg=0;
+	foreach($campus_address_form_fields as $field){
+	   $flg=0;
+       if($i==1) echo '<tr>';
+	?>
+      
+      <?php
+        $arr= $field['FormSetting'];
+        $data= !empty($this->request->data['Employee'][$arr['field_name']])?$this->request->data['Employee'][$arr['field_name']]:'';
+        
+		?>
+        <td width="30%" style="border:none; padding-bottom:10px;"><?php echo $arr['field_display_name']; ?><font color="red"><?php (($arr['is_required']=='required')?'*':'') ?></font></td>
+        <td width="20%" style="border:none; padding-bottom:10px; "><?=$data?></td>
+      <?php
+      if($i==1){
+      ?>
+      <td width="10%" style="border:none; padding-bottom:10px;">&nbsp;</td>
+      <?php
+      }
+      ?>
+    
+    <?php
+        
+        if($i==2){ echo '</tr>'; $flg=1; $i=1;} 
+        if($flg==0) $i++;
+    }
+    if($flg==0){ echo '</tr>'; } 
+    ?>
+    
+  </tbody>
+</table>
+
+
 <table width="960px" border="1" cellspacing="0" cellpadding="0" style="margin:0 auto; border:none; font-family:Gotham, 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size:17px;">
 <h2 style="margin:40px 0 20px 0; font-family:Cambria, 'Hoefler Text', 'Liberation Serif', Times, 'Times New Roman', serif; font-size:20px;">EDUCATION:-</h2>
   <tbody>

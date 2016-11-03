@@ -233,6 +233,12 @@ class EmployeesController extends AppController {
         
         $address_form_fields = $this->FormSetting->find('all',array('conditions'=>array('FormSetting.field_group'=>'address','FormSetting.status'=>1,'FormSetting.form_id'=>1)));
         $this->set('address_form_fields', $address_form_fields);
+		
+		$permanent_address_form_fields = $this->FormSetting->find('all',array('conditions'=>array('FormSetting.field_group'=>'permanentaddress','FormSetting.status'=>1,'FormSetting.form_id'=>1)));
+        $this->set('permanent_address_form_fields', $permanent_address_form_fields);
+		
+		$campus_address_form_fields = $this->FormSetting->find('all',array('conditions'=>array('FormSetting.field_group'=>'campusaddress','FormSetting.status'=>1,'FormSetting.form_id'=>1)));
+        $this->set('campus_address_form_fields', $campus_address_form_fields);
         
         $experience_form_fields = $this->FormSetting->find('all',array('conditions'=>array('FormSetting.field_group'=>'experience','FormSetting.status'=>1,'FormSetting.form_id'=>1)));
         $this->set('experience_form_fields', $experience_form_fields);
@@ -593,6 +599,12 @@ $main[] = array(
         
         $address_form_fields = $this->FormSetting->find('all',array('conditions'=>array('FormSetting.field_group'=>'address','FormSetting.status'=>1,'FormSetting.form_id'=>1)));
         $this->set('address_form_fields', $address_form_fields);
+		
+		$permanent_address_form_fields = $this->FormSetting->find('all',array('conditions'=>array('FormSetting.field_group'=>'permanentaddress','FormSetting.status'=>1,'FormSetting.form_id'=>1)));
+        $this->set('permanent_address_form_fields', $permanent_address_form_fields);
+		
+		$campus_address_form_fields = $this->FormSetting->find('all',array('conditions'=>array('FormSetting.field_group'=>'campusaddress','FormSetting.status'=>1,'FormSetting.form_id'=>1)));
+        $this->set('campus_address_form_fields', $campus_address_form_fields);
         
         $experience_form_fields = $this->FormSetting->find('all',array('conditions'=>array('FormSetting.field_group'=>'experience','FormSetting.status'=>1,'FormSetting.form_id'=>1)));
         $this->set('experience_form_fields', $experience_form_fields);

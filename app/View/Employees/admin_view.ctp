@@ -191,11 +191,68 @@
 			?>
 			</div>
 	</div><!-- End-content_cnt -->
+	
+	
+	<div class="content_cnt first_page"><!-- content_cnt -->
+	<h2>Permanent Address :-</h2>
+		<div class="row inner_form inners"><!-- inner_form -->
+		<h1 class="list_no"><span>5</span></h1>
+			<?php
+				$model_name = 'Employee.';
+				foreach($permanent_address_form_fields as $field){
+				?>
+					<div class="col-sm-6">
+						
+						<div class="input_box">
+					<?php
+					if(!empty($this->request->data['Employee'])){
+						echo $this->Slt->generate_form_field_view($field['FormSetting'],$model_name,$this->request->data['Employee']);  
+					}else{
+						echo $this->Slt->generate_form_field_view($field['FormSetting'],$model_name);  
+					}
+					?>
+						</div>
+						
+					</div>
+					<?php
+						 
+				}
+			?>
+			</div>
+	</div><!-- End-content_cnt -->
+	
+	<div class="content_cnt first_page"><!-- content_cnt -->
+	<h2>Campus Address :-</h2>
+		<div class="row inner_form inners"><!-- inner_form -->
+		<h1 class="list_no"><span>6</span></h1>
+			<?php
+				$model_name = 'Employee.';
+				foreach($campus_address_form_fields as $field){
+				?>
+					<div class="col-sm-6">
+						
+						<div class="input_box">
+					<?php
+					if(!empty($this->request->data['Employee'])){
+						echo $this->Slt->generate_form_field_view($field['FormSetting'],$model_name,$this->request->data['Employee']);  
+					}else{
+						echo $this->Slt->generate_form_field_view($field['FormSetting'],$model_name);  
+					}
+					?>
+						</div>
+						
+					</div>
+					<?php
+						 
+				}
+			?>
+			</div>
+	</div><!-- End-content_cnt --> 
 	 
 	<div class="content_cnt first_page"><!-- content_cnt -->
 	<h2>Education :-</h2>
 		<div class="row inner_form inners"><!-- inner_form -->
-		<h1 class="list_no"><span>5</span></h1>
+		<h1 class="list_no"><span>7</span></h1>
 			<?php
 				$model_name = 'Employee.';
 				foreach($education_form_fields as $field){
@@ -223,7 +280,7 @@
 	<div class="content_cnt first_page"><!-- content_cnt -->
 	<h2>Teaching Experience :-</h2>
 		<div class="row inner_form inners"><!-- inner_form -->
-		<h1 class="list_no"><span>6</span></h1>
+		<h1 class="list_no"><span>8</span></h1>
 			<?php
 				$model_name = 'Employee.';
 				foreach($experience_form_fields as $field){
@@ -251,7 +308,7 @@
 	<div class="content_cnt first_page"><!-- content_cnt -->
 	<h2>Research Experience :-</h2>
 		<div class="row inner_form inners"><!-- inner_form -->
-		<h1 class="list_no"><span>7</span></h1>
+		<h1 class="list_no"><span>9</span></h1>
 			<?php
 				$model_name = 'Employee.';
 				foreach($reserch_experience_form_fields as $field){
@@ -306,7 +363,7 @@
 	<div class="content_cnt second_page"><!-- content_cnt -->
 	<h2>Contract Section :-</h2>
 		<div class="row inner_form inners"><!-- inner_form -->
-		<h1 class="list_no"><span>8</span></h1>
+		<h1 class="list_no"><span>10</span></h1>
 			<?php
 				$model_name = 'Employee.';
 				foreach($contract_section_form_fields as $field){
@@ -334,7 +391,7 @@
 		<div class="content_cnt second_page"><!-- content_cnt -->
 		<h2>Discipline Section :-</h2>
 		<div class="row inner_form inners Discipline_section"><!-- Discipline_section -->
-		<h1 class="list_no"><span>9</span></h1>
+		<h1 class="list_no"><span>11</span></h1>
 			<?php
 				$model_name = 'Employee.';
 				foreach($discipline_section_form_fields as $field){
@@ -361,7 +418,7 @@
 	<div class="content_cnt second_page"><!-- content_cnt -->
 	<h2>Emergency Contact :-</h2>
 		<div class="row inner_form inners"><!-- inner_form -->
-		<h1 class="list_no"><span>10</span></h1>
+		<h1 class="list_no"><span>12</span></h1>
 		<?php
 				$model_name = 'Employee.';
 				foreach($emergency_contact_form_fields as $field){

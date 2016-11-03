@@ -112,6 +112,8 @@ function generate_values(val){
 					  array('general'=>'General Information'
 					  ,'phone'=>'Phone Numbers'
 					  ,'address'=>'Home Address'
+					  ,'permanentaddress'=>'Permanent Address'
+					  ,'campusaddress'=>'Campus Address'
 					  ,'education'=>'Education'
 					  ,'experience'=>'Teaching Experience'
 					  ,'reserch_experience'=>'Research Experience'
