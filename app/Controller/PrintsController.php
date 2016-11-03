@@ -94,6 +94,9 @@ class PrintsController extends AppController {
 		
 		$campus_address_form_fields = $this->FormSetting->find('all',array('conditions'=>array('FormSetting.field_group'=>'campusaddress','FormSetting.status'=>1,'FormSetting.form_id'=>1)));
         $this->set('campus_address_form_fields', $campus_address_form_fields);
+		
+		$comments_form_fields = $this->FormSetting->find('all',array('conditions'=>array('FormSetting.field_group'=>'comments','FormSetting.status'=>1,'FormSetting.form_id'=>1)));
+        $this->set('comments_form_fields', $comments_form_fields);
         
         $experience_form_fields = $this->FormSetting->find('all',array('conditions'=>array('FormSetting.field_group'=>'experience','FormSetting.status'=>1,'FormSetting.form_id'=>1)));
         $this->set('experience_form_fields', $experience_form_fields);

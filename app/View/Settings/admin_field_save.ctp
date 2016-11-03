@@ -121,6 +121,7 @@ function generate_values(val){
 					  ,'contract_section'=>'Contract Section'
 					  ,'discipline_section'=>'Discipline Section'
 					  ,'emergency_contact'=>'Emergency Contact'
+					  ,'comments'=>'Comments'
 					  ,'upload_section'=>'Upload Section'); ?>
                       <?php echo $this->Form->input('FormSetting.field_group', array('type' => 'select','options' => $groups,'class'=>'form-control','required'=>'required','label'=>false)); ?>
                         
