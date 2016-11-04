@@ -571,7 +571,10 @@ $main[] = array(
 		if($this->Session->check('Auth.User')){
 		  if($this->Auth->user('user_type_id')==3)	
             $this->redirect(array('deo' => true , 'action' => 'save'));	
-		}  
+		}
+        if($id=='') {
+            $this->redirect(array('admin'=>true,'action'=>'list'));
+        }
 		$this->layout = 'panel_layout';
         $this->set('title', 'Employee Details');
         /* $emp_data = $this->Employee->find('first',array('conditions'=>array('Employee.status'=>1,'Employee.id'=>$id)));

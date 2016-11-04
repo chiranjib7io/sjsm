@@ -356,7 +356,7 @@ else {
 				$model_name = 'Employee.';
 				foreach($comments_form_fields as $field){
 				?>
-					<div class="col-sm-6">
+					<div class="col-sm-12">
 						
 						<div class="input_box">
 					<?php
@@ -552,7 +552,7 @@ else {
 				$model_name = 'Employee.';
 				foreach($reserch_experience_form_fields as $field){
 				?>
-					<div class="col-sm-12">
+					<div class="col-sm-6">
 						
 						<div class="input_box">
 					<?php
